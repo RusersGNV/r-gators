@@ -1,25 +1,25 @@
 baseurl = "/"
-title = "Mainroad"
+title = "R-Gators"
 languageCode = "en-us"
-paginate = "10" # Number of posts per page
+paginate = "6" # Number of posts per page
 theme = "mainroad"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Author]
-    name = "John Doe"
+    name = "R-Gators"
     bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
     avatar = "img/avatar.png"
 
 
 [Params]
-    subtitle = "Just another site" # Subtitle of your site
+    subtitle = "Activity hub from R programming at the University of Florida" # Subtitle of your site
     description = " John Doe's Personal blog about everything" # Description of your site
     opengraph = true
     readmore = false # Show "Read more" button in list if true
-    leftsidebar = false # Move sidebar to the left side if true
-    authorbox = true
-    post_navigation = true
+    leftsidebar = true # Move sidebar to the left side if true
+    authorbox = false
+    post_navigation = false
     postSections = ["post"]
 
 
@@ -29,3 +29,6 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
     categories = true # Enable "Categories" widget
     tags = true # Enable "Tags" widget
         tags_counter = false # Enable counter for each tag in "Tags" widget (disabled by default)
+    social = true # Enable "Social" widget
+    social_github = "ufrmeetup"
+    social_email = "jjmillar@ufl.edu"
