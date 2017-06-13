@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: Starter's Guide\nmenu: \"main\"\n---\n\nGetting started in R",
+    "created" : 1497397643246.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2575885777",
+    "id" : "E0FCB138",
+    "lastKnownWriteTime" : 1497397694,
+    "last_content_update" : 1497397694456,
+    "path" : "~/GitHub/r-gators/content/start.md",
+    "project_path" : "content/start.md",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
