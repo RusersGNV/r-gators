@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "baseurl = \"/\"\ntitle = \"Mainroad\"\nlanguageCode = \"en-us\"\npaginate = \"10\" # Number of posts per page\ntheme = \"mainroad\"\ndisqusShortname = \"\" # Enable comments by entering your Disqus shortname\ngoogleAnalytics = \"\" # Enable Google Analytics by entering your tracking id\n\n[Author]\n    name = \"John Doe\"\n    bio = \"John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it.\"\n    avatar = \"img/avatar.png\"\n\n\n[Params]\n    subtitle = \"Just another site\" # Subtitle of your site\n    description = \" John Doe's Personal blog about everything\" # Description of your site\n    opengraph = true\n    readmore = false # Show \"Read more\" button in list if true\n    leftsidebar = false # Move sidebar to the left side if true\n    authorbox = true\n    post_navigation = true\n    postSections = [\"post\"]\n\n\n[Params.widgets]\n    search = true # Enable \"Search\" widget\n    recent_articles = true # Enable \"Recent arcticles\" widget\n    categories = true # Enable \"Categories\" widget\n    tags = true # Enable \"Tags\" widget\n        tags_counter = false # Enable counter for each tag in \"Tags\" widget (disabled by default)",
+    "created" : 1497391803527.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3301506616",
+    "id" : "89CFBDC8",
+    "lastKnownWriteTime" : 1497391627,
+    "last_content_update" : 1497391627,
+    "path" : "~/GitHub/r-gators/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}
