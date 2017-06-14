@@ -32,43 +32,14 @@ Thankfully there are many packages for making elegant data visualizations in R, 
     </item>
     
     <item>
-      <title>A Plain Markdown Post</title>
-      <link>/post/2016-12-30-hello-markdown/</link>
-      <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
+      <title>Upcoming Meeting Presentation: Rcpp and foreach</title>
+      <link>/post/upcoming-meeting-presentation-rcpp-and-foreach/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2016-12-30-hello-markdown/</guid>
-      <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>Lorem Ipsum</title>
-      <link>/post/2015-01-01-lorem-ipsum/</link>
-      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
-      
-      <guid>/post/2015-01-01-lorem-ipsum/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
-    </item>
-    
-    <item>
-      <title>About Hugo</title>
-      <link>/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>The R programming language is rapidly becoming the go-to standard for statistical analysis for many research discplines. The goal of the UF R Meetups is to promote R programming capacities across the Univeristy of Florida. We maintain two resources, the UF R list-serv and the weekly UF R Meetup sessions.
-The UF R list-serv We have resurrected the UF R list-serv to provide a forum for asking questions in R.</description>
+      <guid>/post/upcoming-meeting-presentation-rcpp-and-foreach/</guid>
+      <description>Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:
+Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque Time: 4 to 6pm Date: Feb 8 (Wednesday) Venue: Marston Science Library Room L136
+We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster!</description>
     </item>
     
     <item>
@@ -81,13 +52,14 @@ The UF R list-serv We have resurrected the UF R list-serv to provide a forum for
     </item>
     
     <item>
-      <title>R at UF</title>
-      <link>/r-at-uf/</link>
+      <title>Courses at UF</title>
+      <link>/courses/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/r-at-uf/</guid>
-      <description>The R programming language is rapidly becoming the go-to standard for statistical analysis for many research discplines. The goal of the UF R Meetups is to promote R programming capacities across the Univeristy of Florida. We maintain two resources, the UF R list-serv and the weekly UF R Meetup sessions.
-The UF R list-serv We have resurrected the UF R list-serv to provide a forum for asking questions in R.</description>
+      <guid>/courses/</guid>
+      <description>Workshops Information about the SW and Data Carpentry workshops
+Data Carpentry Info about Ethan&amp;rsquo;s course
+Stats Courses Info about stats courses that use R, and link to Shiny app</description>
     </item>
     
     <item>
@@ -106,6 +78,25 @@ The UF R list-serv We have resurrected the UF R list-serv to provide a forum for
       
       <guid>/start/</guid>
       <description>Getting started in R</description>
+    </item>
+    
+    <item>
+      <title>UF R List-Serv</title>
+      <link>/listserv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/listserv/</guid>
+      <description>We have resurrected the UF R list-serv to provide a forum for asking questions in R. Please sign up for the list-serv here. If you want to manage how you recieve emails from the list, follow this link. Sign in and change setting under the subscriber&amp;rsquo;s corner. We strive to make the list beginner-friendly, however please check out this posting guide before posting (well-formmated questions can be answered much quicker!).</description>
+    </item>
+    
+    <item>
+      <title>Weekly Meetups</title>
+      <link>/meetups/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/meetups/</guid>
+      <description>Our weekly meetups are on Wednesdays from 4-6pm at the Marstons Science Library (located here). The meetups consist of presentation/tutorial covering interesting topics in R, and are followed by an open session where you can consult advanced R users. Please be sure to sign up for the list-serv for updates on topics and changes to the schedule/locations.
+If you have suggestions for future presentations, or are interested in giving a presentation (even better!</description>
     </item>
     
   </channel>
