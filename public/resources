@@ -1,0 +1,37 @@
+---
+title: Resources
+menu: "main"
+---
+
+## Getting Started with R
+* Your first step is to download R
+* Next, we **highly recommend** also downloading RStudio. This program is an Itegrated Development Environment (IDE), made specifically to make it easier to write R code. You don't have to use RStudio to use R, but it makes things much easier, especially in the beginning (and it's totally free!)
+
+
+
+## Resources at UF
+
+### UF R list-serv
+We have resurrected the UF R list-serv to provide a forum for asking questions in R. Please sign up for the [list-serv here](http://tinyurl.com/UFRUser). If you want to manage how you recieve emails from the list, [follow this link](https://lists.ufl.edu/cgi-bin/wa?INDEX). Sign in and change setting under the subscriber's corner.  We strive to make the list beginner-friendly, however please check out [this posting guide](http://www.r-project.org/posting-guide.html) before posting (well-formmated questions can be answered much quicker!).
+
+### UF R Meetups
+Our weekly meetups are on Wednesdays from 4-6pm at the Marstons Science Library ([located here](https://www.google.com/maps/place/UF+Marston+Science+Library/@29.6480995,-82.3462533,17z/data=!3m1!4b1!4m5!3m4!1s0x88e8a39d475abd77:0xa84d77bf04354a1e!8m2!3d29.6480995!4d-82.3440646)). The meetups consist of presentation/tutorial covering interesting topics in R, and are followed by an open session where you can consult advanced R users. Please be sure to sign up for the list-serv for updates on topics and changes to the schedule/locations.
+
+If you have suggestions for future presentations, or are interested in giving a presentation (even better!), please don't hesitate to [send us an email](mailto:jjmillar@ufl.edu%3Cmailto:jjmillar@ufl.edu). We're also striving to create R markdown files for the presentations and/or GitHub repositories (located here) whenever possible. 
+
+
+### Gainesville Monthly Meetups
+
+
+### Courses and Workshops
+Ethan White's source
+Software and Data Carpentry Workshops
+Stat's courses
+
+
+## Other Resources
+### Web Resources
+* Google
+* DataCamp
+* Coursera
+* Add more stuff
