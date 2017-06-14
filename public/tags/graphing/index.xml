@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Graphing on R-Gators</title>
-    <link>/tags/graphing/</link>
+    <link>/tags/graphing/index.xml</link>
     <description>Recent content in Graphing on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Feb 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/graphing/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/tags/graphing/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quick Intro to ggplot</title>
@@ -17,8 +14,29 @@
       <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/quick-intro-to-ggplot/</guid>
-      <description>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).
-Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2.</description>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+
+
+
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).&lt;/p&gt;
+&lt;p&gt;Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2. This package is among the most downloaded on CRAN, it won’t take long before you see ggplots everywhere.&lt;/p&gt;
+&lt;p&gt;First lets install and load the package,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(&amp;#39;ggplot2&amp;#39;)
+library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s make a basic histogram using base graphics and ggplot. We’ll use the diamonds dataset (this is built into the package).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(diamonds$carat)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = diamonds) +
+  geom_histogram(aes(x = carat))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These code for these graphics are similar, as are the outputs, however there are some noticeable differences.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

@@ -2,14 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on R-Gators</title>
-    <link>/post/</link>
+    <link>/post/index.xml</link>
     <description>Recent content in Posts on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 22 Feb 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quick Intro to ggplot</title>
@@ -17,8 +15,29 @@
       <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/quick-intro-to-ggplot/</guid>
-      <description>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).
-Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2.</description>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+
+
+
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).&lt;/p&gt;
+&lt;p&gt;Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2. This package is among the most downloaded on CRAN, it won’t take long before you see ggplots everywhere.&lt;/p&gt;
+&lt;p&gt;First lets install and load the package,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(&amp;#39;ggplot2&amp;#39;)
+library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s make a basic histogram using base graphics and ggplot. We’ll use the diamonds dataset (this is built into the package).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(diamonds$carat)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = diamonds) +
+  geom_histogram(aes(x = carat))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These code for these graphics are similar, as are the outputs, however there are some noticeable differences.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -27,8 +46,10 @@ Thankfully there are many packages for making elegant data visualizations in R, 
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
-      <description>Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation here.
- </description>
+      <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;
+</description>
     </item>
     
     <item>
@@ -37,9 +58,28 @@ Thankfully there are many packages for making elegant data visualizations in R, 
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/upcoming-meeting-presentation-rcpp-and-foreach/</guid>
-      <description>Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:
-Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque Time: 4 to 6pm Date: Feb 8 (Wednesday) Venue: Marston Science Library Room L136
-We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster!</description>
+      <description>&lt;p&gt;Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:&lt;/p&gt;
+
+&lt;p&gt;Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque
+Time: 4 to 6pm
+Date: Feb 8 (Wednesday)
+Venue: Marston Science Library Room L136&lt;/p&gt;
+
+&lt;p&gt;We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster! And of course it&amp;rsquo;s always interesting to take note on what R and its package can help you with, even if you don&amp;rsquo;t have such problem currently.&lt;/p&gt;
+
+&lt;p&gt;As usual, you&amp;rsquo;ll get to interact, help and get help from other R users after the presentation. Drinks will be provided, so please bring your computer, questions, and expertise! And please do not hesitate to contact me (kokbent@ufl.edu&lt;a href=&#34;mailto:kokbent@ufl.edu&#34;&gt;kokbent@ufl.edu&lt;/a&gt;) or Justin (jjmillar@ufl.edu&lt;a href=&#34;mailto:jjmillar@ufl.edu&#34;&gt;jjmillar@ufl.edu&lt;/a&gt;) if you have any enquiry or feedback&lt;/p&gt;
+
+&lt;p&gt;If you have friends and colleagues who wish to join the UF R users mailing list, fill in the form here&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt; (&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt;) or email us.&lt;/p&gt;
+
+&lt;p&gt;Also, please feel free to ask your R questions via this mailing list&lt;/p&gt;
+
+&lt;p&gt;See you on Wednesday!
+Ben&lt;/p&gt;
+
+&lt;p&gt;This list strives to be beginner friendly.  However, we still ask that you
+PLEASE do read the posting guide &lt;a href=&#34;http://www.R-project.org/posting-guide.html&#34;&gt;http://www.R-project.org/posting-guide.html&lt;/a&gt;
+and provide commented, minimal, self-contained, reproducible code.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

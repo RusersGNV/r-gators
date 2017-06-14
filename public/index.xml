@@ -2,14 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R-Gators</title>
-    <link>/</link>
+    <link>/index.xml</link>
     <description>Recent content on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 22 Feb 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quick Intro to ggplot</title>
@@ -17,8 +15,29 @@
       <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/quick-intro-to-ggplot/</guid>
-      <description>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).
-Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2.</description>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+
+
+
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).&lt;/p&gt;
+&lt;p&gt;Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2. This package is among the most downloaded on CRAN, it won’t take long before you see ggplots everywhere.&lt;/p&gt;
+&lt;p&gt;First lets install and load the package,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(&amp;#39;ggplot2&amp;#39;)
+library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s make a basic histogram using base graphics and ggplot. We’ll use the diamonds dataset (this is built into the package).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(diamonds$carat)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = diamonds) +
+  geom_histogram(aes(x = carat))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;#####content/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These code for these graphics are similar, as are the outputs, however there are some noticeable differences.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -27,8 +46,10 @@ Thankfully there are many packages for making elegant data visualizations in R, 
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
-      <description>Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation here.
- </description>
+      <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;
+</description>
     </item>
     
     <item>
@@ -37,9 +58,28 @@ Thankfully there are many packages for making elegant data visualizations in R, 
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/upcoming-meeting-presentation-rcpp-and-foreach/</guid>
-      <description>Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:
-Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque Time: 4 to 6pm Date: Feb 8 (Wednesday) Venue: Marston Science Library Room L136
-We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster!</description>
+      <description>&lt;p&gt;Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:&lt;/p&gt;
+
+&lt;p&gt;Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque
+Time: 4 to 6pm
+Date: Feb 8 (Wednesday)
+Venue: Marston Science Library Room L136&lt;/p&gt;
+
+&lt;p&gt;We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster! And of course it&amp;rsquo;s always interesting to take note on what R and its package can help you with, even if you don&amp;rsquo;t have such problem currently.&lt;/p&gt;
+
+&lt;p&gt;As usual, you&amp;rsquo;ll get to interact, help and get help from other R users after the presentation. Drinks will be provided, so please bring your computer, questions, and expertise! And please do not hesitate to contact me (kokbent@ufl.edu&lt;a href=&#34;mailto:kokbent@ufl.edu&#34;&gt;kokbent@ufl.edu&lt;/a&gt;) or Justin (jjmillar@ufl.edu&lt;a href=&#34;mailto:jjmillar@ufl.edu&#34;&gt;jjmillar@ufl.edu&lt;/a&gt;) if you have any enquiry or feedback&lt;/p&gt;
+
+&lt;p&gt;If you have friends and colleagues who wish to join the UF R users mailing list, fill in the form here&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt; (&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt;) or email us.&lt;/p&gt;
+
+&lt;p&gt;Also, please feel free to ask your R questions via this mailing list&lt;/p&gt;
+
+&lt;p&gt;See you on Wednesday!
+Ben&lt;/p&gt;
+
+&lt;p&gt;This list strives to be beginner friendly.  However, we still ask that you
+PLEASE do read the posting guide &lt;a href=&#34;http://www.R-project.org/posting-guide.html&#34;&gt;http://www.R-project.org/posting-guide.html&lt;/a&gt;
+and provide commented, minimal, self-contained, reproducible code.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -48,7 +88,8 @@ We think this week&amp;rsquo;s presentation topic will be very useful for those 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/contributors/</guid>
-      <description>About the people and the resources.</description>
+      <description>&lt;p&gt;About the people and the resources.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -57,9 +98,20 @@ We think this week&amp;rsquo;s presentation topic will be very useful for those 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/courses/</guid>
-      <description>Workshops Information about the SW and Data Carpentry workshops
-Data Carpentry Info about Ethan&amp;rsquo;s course
-Stats Courses Info about stats courses that use R, and link to Shiny app</description>
+      <description>
+
+&lt;h4 id=&#34;workshops&#34;&gt;Workshops&lt;/h4&gt;
+
+&lt;p&gt;Information about the SW and Data Carpentry workshops&lt;/p&gt;
+
+&lt;h4 id=&#34;data-carpentry&#34;&gt;Data Carpentry&lt;/h4&gt;
+
+&lt;p&gt;Info about Ethan&amp;rsquo;s course&lt;/p&gt;
+
+&lt;h4 id=&#34;stats-courses&#34;&gt;Stats Courses&lt;/h4&gt;
+
+&lt;p&gt;Info about stats courses that use R, and link to Shiny app&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -68,7 +120,8 @@ Stats Courses Info about stats courses that use R, and link to Shiny app</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/schedule/</guid>
-      <description> </description>
+      <description>&lt;iframe src=&#34;https://calendar.google.com/calendar/embed?src=ufrmeetup%40gmail.com&amp;ctz=America/New_York&#34; style=&#34;border: 0&#34; width=&#34;800&#34; height=&#34;600&#34; frameborder=&#34;0&#34; scrolling=&#34;no&#34;&gt;&lt;/iframe&gt;
+</description>
     </item>
     
     <item>
@@ -77,7 +130,8 @@ Stats Courses Info about stats courses that use R, and link to Shiny app</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/start/</guid>
-      <description>Getting started in R</description>
+      <description>&lt;p&gt;Getting started in R&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -86,7 +140,8 @@ Stats Courses Info about stats courses that use R, and link to Shiny app</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/listserv/</guid>
-      <description>We have resurrected the UF R list-serv to provide a forum for asking questions in R. Please sign up for the list-serv here. If you want to manage how you recieve emails from the list, follow this link. Sign in and change setting under the subscriber&amp;rsquo;s corner. We strive to make the list beginner-friendly, however please check out this posting guide before posting (well-formmated questions can be answered much quicker!).</description>
+      <description>&lt;p&gt;We have resurrected the UF R list-serv to provide a forum for asking questions in R. Please sign up for the &lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;list-serv here&lt;/a&gt;. If you want to manage how you recieve emails from the list, &lt;a href=&#34;https://lists.ufl.edu/cgi-bin/wa?INDEX&#34;&gt;follow this link&lt;/a&gt;. Sign in and change setting under the subscriber&amp;rsquo;s corner.  We strive to make the list beginner-friendly, however please check out &lt;a href=&#34;http://www.r-project.org/posting-guide.html&#34;&gt;this posting guide&lt;/a&gt; before posting (well-formmated questions can be answered much quicker!).&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -95,8 +150,10 @@ Stats Courses Info about stats courses that use R, and link to Shiny app</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/meetups/</guid>
-      <description>Our weekly meetups are on Wednesdays from 4-6pm at the Marstons Science Library (located here). The meetups consist of presentation/tutorial covering interesting topics in R, and are followed by an open session where you can consult advanced R users. Please be sure to sign up for the list-serv for updates on topics and changes to the schedule/locations.
-If you have suggestions for future presentations, or are interested in giving a presentation (even better!</description>
+      <description>&lt;p&gt;Our weekly meetups are on Wednesdays from 4-6pm at the Marstons Science Library (&lt;a href=&#34;https://www.google.com/maps/place/UF+Marston+Science+Library/@29.6480995,-82.3462533,17z/data=!3m1!4b1!4m5!3m4!1s0x88e8a39d475abd77:0xa84d77bf04354a1e!8m2!3d29.6480995!4d-82.3440646&#34;&gt;located here&lt;/a&gt;). The meetups consist of presentation/tutorial covering interesting topics in R, and are followed by an open session where you can consult advanced R users. Please be sure to sign up for the list-serv for updates on topics and changes to the schedule/locations.&lt;/p&gt;
+
+&lt;p&gt;If you have suggestions for future presentations, or are interested in giving a presentation (even better!), please don&amp;rsquo;t hesitate to &lt;a href=&#34;mailto:jjmillar@ufl.edu%3Cmailto:jjmillar@ufl.edu&#34;&gt;send us an email&lt;/a&gt;. We&amp;rsquo;re also striving to create R markdown files for these presentations, which will be hosted on this site and on Github.&lt;/p&gt;
+</description>
     </item>
     
   </channel>
