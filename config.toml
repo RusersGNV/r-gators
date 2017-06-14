@@ -2,7 +2,7 @@ baseurl = "/"
 title = "R-Gators"
 languageCode = "en-us"
 paginate = "6" # Number of posts per page
-theme = "mainroad"
+theme = "Mainroad"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
