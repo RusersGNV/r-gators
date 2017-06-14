@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rcpp on R-Gators</title>
+    <link>/tags/rcpp/</link>
+    <description>Recent content in Rcpp on R-Gators</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Speeding up R code using Rcpp and foreach packages</title>
+      <link>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
+      <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
+      <description>Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation here.
+ </description>
+    </item>
+    
+  </channel>
+</rss>

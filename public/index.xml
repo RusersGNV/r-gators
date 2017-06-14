@@ -22,6 +22,16 @@ Thankfully there are many packages for making elegant data visualizations in R, 
     </item>
     
     <item>
+      <title>Speeding up R code using Rcpp and foreach packages</title>
+      <link>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
+      <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
+      <description>Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation here.
+ </description>
+    </item>
+    
+    <item>
       <title>A Plain Markdown Post</title>
       <link>/post/2016-12-30-hello-markdown/</link>
       <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
