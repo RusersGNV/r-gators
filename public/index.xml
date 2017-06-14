@@ -6,10 +6,20 @@
     <description>Recent content on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Dec 2016 21:49:57 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 22 Feb 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Quick Intro to ggplot</title>
+      <link>/post/quick-intro-to-ggplot/</link>
+      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/quick-intro-to-ggplot/</guid>
+      <description>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).
+Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2.</description>
+    </item>
     
     <item>
       <title>A Plain Markdown Post</title>

@@ -6,10 +6,28 @@
     <description>Recent content in Tags on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 22 Feb 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ggplot</title>
+      <link>/tags/ggplot/</link>
+      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggplot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graphing</title>
+      <link>/tags/graphing/</link>
+      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/graphing/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Plot</title>
