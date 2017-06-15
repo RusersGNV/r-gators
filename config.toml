@@ -24,11 +24,12 @@ googleAnalytics = "UA-75169517-2" # Enable Google Analytics by entering your tra
 
 
 [Params.widgets]
-    search = true # Enable "Search" widget
+    search = false # Enable "Search" widget
     recent_articles = true # Enable "Recent arcticles" widget
     categories = true # Enable "Categories" widget
     tags = true # Enable "Tags" widget
         tags_counter = false # Enable counter for each tag in "Tags" widget (disabled by default)
     social = true # Enable "Social" widget
     social_github = "ufrmeetup"
+    social_facebook = "groups/270528976467287/"
     social_email = "R-USERS-L@LISTS.UFL.EDU"
