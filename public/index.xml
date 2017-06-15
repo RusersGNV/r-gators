@@ -120,7 +120,17 @@ and provide commented, minimal, self-contained, reproducible code.&lt;/p&gt;
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/start/</guid>
-      <description>&lt;p&gt;Getting started in R&lt;/p&gt;
+      <description>
+
+&lt;h4 id=&#34;installing-r-and-rstudio&#34;&gt;Installing R and RStudio&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The first step is to &lt;a href=&#34;https://www.r-project.org/&#34;&gt;install R&lt;/a&gt;, just select the correct link for your operating system&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Next, we &lt;strong&gt;highly recommend&lt;/strong&gt; &lt;a href=&#34;https://www.rstudio.com/&#34;&gt;installing RStudio&lt;/a&gt;. This is an &amp;ldquo;integrated development environment&amp;rdquo; (IDE), which provides a useful interface from programming in R. It&amp;rsquo;s not essential, but it will make your life easier (especially for beginnings), and it&amp;rsquo;s free!&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;You&amp;rsquo;re ready to start programming in R! Now you can sign up for the UF R list-serv and check out the &lt;a href=&#34;../schedule&#34;&gt;schedule&lt;/a&gt; to find out about upcoming information and events on campus.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
