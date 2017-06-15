@@ -31,4 +31,4 @@ googleAnalytics = "UA-75169517-2" # Enable Google Analytics by entering your tra
         tags_counter = false # Enable counter for each tag in "Tags" widget (disabled by default)
     social = true # Enable "Social" widget
     social_github = "ufrmeetup"
-    social_email = "jjmillar@ufl.edu"
+    social_email = "R-USERS-L@LISTS.UFL.EDU"
