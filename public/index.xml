@@ -38,7 +38,7 @@ library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
       <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;
+&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; &gt;&lt;/iframe&gt;
 </description>
     </item>
     
@@ -78,7 +78,15 @@ and provide commented, minimal, self-contained, reproducible code.&lt;/p&gt;
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/contributors/</guid>
-      <description>&lt;p&gt;About the people and the resources.&lt;/p&gt;
+      <description>
+
+&lt;p&gt;About the people and the resources.&lt;/p&gt;
+
+&lt;h4 id=&#34;uf-informatics-institute&#34;&gt;UF Informatics Institute&lt;/h4&gt;
+
+&lt;h4 id=&#34;uf-libraries&#34;&gt;UF Libraries&lt;/h4&gt;
+
+&lt;h4 id=&#34;denis-valle-lab&#34;&gt;Denis Valle Lab&lt;/h4&gt;
 </description>
     </item>
     
