@@ -8,13 +8,13 @@ googleAnalytics = "UA-75169517-2" # Enable Google Analytics by entering your tra
 
 [Author]
     name = "R-Gators"
-    bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
-    avatar = "img/avatar.png"
+    bio = "Activity hub for R programming at the University of Florida."
+    avatar = ""
 
 
 [Params]
     subtitle = "Activity hub for R programming at the University of Florida" # Subtitle of your site
-    description = " John Doe's Personal blog about everything" # Description of your site
+    description = " Activity hub for R programming at the University of Florida" # Description of your site
     opengraph = true
     readmore = false # Show "Read more" button in list if true
     leftsidebar = true # Move sidebar to the left side if true

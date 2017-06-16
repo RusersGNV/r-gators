@@ -37,7 +37,7 @@ library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
       <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; &gt;&lt;/iframe&gt;
+&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;500px&#34;&gt;&lt;/iframe&gt;
 </description>
     </item>
     
