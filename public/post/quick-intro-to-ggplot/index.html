@@ -38,6 +38,9 @@ ga('send', 'pageview');
 </script>
 <script async src='//www.google-analytics.com/analytics.js'></script>
 
+
+
+
 </head>
 <body class="body body-left-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
 	<div class="container container-outer">
@@ -79,17 +82,20 @@ ga('send', 'pageview');
 			<figure class="post__thumbnail">
 				<img src="/imgs/ggplot2.png" alt="Quick Intro to ggplot">
 			</figure>
-			<p>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).</p>
+
+
+
+<p>R is capable of creating a wide variety of graphics and data visualizations right out of the box. It’s one of the main reasons for using R. However, base R graphics are often not the most aesthetically pleasing, and can be diffuclt to customize (especially if you’re new to programs like R that don’t use graphic interfaces).</p>
 <p>Thankfully there are many packages for making elegant data visualizations in R, and a standout among them is ggplot2. This package is among the most downloaded on CRAN, it won’t take long before you see ggplots everywhere.</p>
 <p>First lets install and load the package,</p>
 <pre class="r"><code>require(&#39;ggplot2&#39;)
 library(ggplot2)</code></pre>
 <p>Let’s make a basic histogram using base graphics and ggplot. We’ll use the diamonds dataset (this is built into the package).</p>
 <pre class="r"><code>hist(diamonds$carat)</code></pre>
-<p><img src="/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="figures/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(data = diamonds) +
   geom_histogram(aes(x = carat))</code></pre>
-<p><img src="/post/2017-02-22-quick-intro-to-ggplot_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p><img src="figures/unnamed-chunk-2-2.png" width="672" /></p>
 <p>These code for these graphics are similar, as are the outputs, however there are some noticeable differences.</p>
 
 		</div>
