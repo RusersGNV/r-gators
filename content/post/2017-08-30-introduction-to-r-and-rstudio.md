@@ -143,13 +143,13 @@ str(weight_g)     # Display structure of object
 
 ## Datatypes in R
 
----------------  -----------------------------------------
-`"numeric"`      Numbers, including decimals
-`"character"`    Strings (text)
-`"logical"`      TRUE/FALSE (Boolean)
-`"integer"`      Integer values
-`"factor"`       Categorial variables (including strings)
----------------  -----------------------------------------
+| Class         | Description                              |
+|---------------|------------------------------------------|
+| `"numeric"`   | Numbers, including decimals              |
+| `"character"` | Strings (text)                           |
+| `"logical"`   | TRUE/FALSE (Boolean)                     |
+| `"integer"`   | Integer values                           |
+| `"factor"`    | Categorial variables (including strings) |
 
 ## Subsetting vectors
 

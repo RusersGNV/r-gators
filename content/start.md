@@ -13,13 +13,3 @@ menu: "main"
 
 - If you get stuck, attending the [weekly meetups](../meetups) is a great place to get one-on-one help!
 
-#### Online Resources
-- Google
-- DataCamp?
-- Stack Exchange, etc.
-
-
-#### Books
-
-
-#### Other

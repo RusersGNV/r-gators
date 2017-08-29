@@ -155,15 +155,41 @@ str(weight_g)     # Display structure of object
 
 &lt;h2 id=&#34;datatypes-in-r&#34;&gt;Datatypes in R&lt;/h2&gt;
 
-&lt;hr /&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Class&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
 
-&lt;p&gt;&lt;code&gt;&amp;quot;numeric&amp;quot;&lt;/code&gt;      Numbers, including decimals
-&lt;code&gt;&amp;quot;character&amp;quot;&lt;/code&gt;    Strings (text)
-&lt;code&gt;&amp;quot;logical&amp;quot;&lt;/code&gt;      TRUE/FALSE (Boolean)
-&lt;code&gt;&amp;quot;integer&amp;quot;&lt;/code&gt;      Integer values
-&lt;code&gt;&amp;quot;factor&amp;quot;&lt;/code&gt;       Categorial variables (including strings)&lt;/p&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;numeric&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Numbers, including decimals&lt;/td&gt;
+&lt;/tr&gt;
 
-&lt;hr /&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;character&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Strings (text)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;logical&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;TRUE/FALSE (Boolean)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;integer&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Integer values&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;factor&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Categorial variables (including strings)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h2 id=&#34;subsetting-vectors&#34;&gt;Subsetting vectors&lt;/h2&gt;
 
