@@ -7,11 +7,6 @@
   </url>
   
   <url>
-    <loc>/post/quick-intro-to-ggplot/</loc>
-    <lastmod>2017-02-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
   </url>
@@ -43,18 +38,6 @@
   <url>
     <loc>/tags/foreach/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/ggplot/</loc>
-    <lastmod>2017-02-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/graphing/</loc>
-    <lastmod>2017-02-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
