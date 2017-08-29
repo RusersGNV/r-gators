@@ -1,0 +1,257 @@
+---
+title: Intro to R and RStudio
+author: Justin Millar
+date: '2017-08-30'
+categories:
+  - Meetup Presentation
+tags:
+  - rstudio
+  - importing data
+---
+
+<!-- BLOGDOWN-HEAD -->
+
+
+
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<p><a href="../data/intro-to-r.pdf">link to pdf</a>. <iframe src="../data/intro-to-r.pdf" width="100%" height="500px"></iframe></p>
+<div id="links" class="section level2">
+<h2>Links</h2>
+<ul>
+<li><a href="https://board.net/p/ufr-2017-08-30">Etherpad notes</a></li>
+<li><a href="http://www.datacarpentry.org/R-ecology-lesson/">Data Carpentry R lesson</a></li>
+<li><a href="https://www.r-project.org/">Download R</a></li>
+<li><a href="https://www.rstudio.com/products/rstudio/download/#download">Download RStudio</a></li>
+</ul>
+</div>
+<div id="why-r" class="section level2">
+<h2>Why R?</h2>
+<ul>
+<li>R doesn’t involve pointing and clicking</li>
+<li>Great for reproducibility</li>
+<li>Works for all sorts of data</li>
+<li>Creating awesome graphics</li>
+<li>Interdisplincary with a large community</li>
+<li>Free, open-source, and cross-platform</li>
+</ul>
+</div>
+<div id="rstudio" class="section level2">
+<h2>RStudio</h2>
+<p>RStudio is a free Integrated Development Environment (IDE) for working with R</p>
+<p>This provides a framework for:</p>
+<blockquote>
+<ul>
+<li>Writing code</li>
+<li>Navigating files</li>
+<li>Visualizing packages</li>
+<li>Creating projects</li>
+<li>Many other goodies (version control, making packages, Shiny apps)</li>
+</ul>
+</blockquote>
+</div>
+<div id="rstudio-projects" class="section level2">
+<h2>RStudio Projects</h2>
+<p>Projects in RStudio create a folder for storing all of our files (data, scripts, images)</p>
+<p>Eliminates the need for setting our working directory with <code>setwd()</code></p>
+<p>It is useful to created individual folders within the project for storing <code>data\</code>, <code>scripts\</code>, <code>images\</code>, etc.</p>
+<p>When you want to open your project to a new computer, just copy this entire folder onto the new machine</p>
+</div>
+<div id="interacting-with-r" class="section level2">
+<h2>Interacting with R</h2>
+<ul>
+<li>Using the console
+<ul>
+<li>Immediately execute commands</li>
+<li>Console shows <code>&gt;</code> when ready to accept a command</li>
+<li>Console shows <code>+</code> when waiting for more information
+<ul>
+<li>Press <kbd><code>Esc</code></kbd> to cancel incomplete commands</li>
+</ul></li>
+</ul></li>
+<li>Writing scripts
+<ul>
+<li>Creates a complete record of our process</li>
+<li>Execute commands directly from the script editor by using the <kbd><code>Ctrl</code></kbd> + <kbd><code>Enter</code></kbd> (<kbd><code>Cmd</code></kbd> + <kbd><code>Return</code></kbd> on Mac)</li>
+<li>Run the entire script using <kbd><code>Ctrl</code></kbd> + <kbd><code>Shift</code></kbd> + <kbd><code>Enter</code></kbd></li>
+</ul></li>
+</ul>
+</div>
+<div id="using-help-files" class="section level2">
+<h2>Using Help Files</h2>
+<p>Use <code>?</code> to get the help file for a function</p>
+<p>Use <code>args()</code> function to get the arguments for a function</p>
+<p>Use <code>??</code> to search for a term in help files</p>
+<p>Look at the Cheatsheets in the <code>Help</code> tab in RStudio</p>
+</div>
+<div id="creating-objectsvariables" class="section level2">
+<h2>Creating objects/variables</h2>
+<p>We can assign <em>values</em> to <em>objects</em> using the assignment operator, and use R to do useful things:</p>
+<pre class="r"><code>weight_kg &lt;- 55</code></pre>
+<p>You may come across code that assigns values using <code>=</code> instead of <code>&lt;-</code>, which can have some <a href="https://web.archive.org/web/20130610005305/https://stat.ethz.ch/pipermail/r-help/2009-March/191462.html">slight differences</a></p>
+<p>It is good practice to stick with<code>&lt;-</code> for assigning values</p>
+<pre class="r"><code>2.2 * weight_kg  # Do math with variables
+
+weight_kg &lt;- 57.5  # Save over an variables with new value(s)
+2.2 * weight_kg
+
+weight_lb &lt;- 2.2 * weight_kg  # Create new variables with old ones</code></pre>
+</div>
+<div id="functions-and-arguments" class="section level2">
+<h2>Functions and arguments</h2>
+<p><strong>Functions</strong> are “canned scripts” which automate series of commands on one or more inputs called <strong>arguments</strong></p>
+<pre class="r"><code>b &lt;- sqrt(a)</code></pre>
+<p>Arguments can be anything (numbers, filenames, variables), <em>options</em> are arguments that take on default values which can be altered by the user</p>
+<pre class="r"><code>round(3.14159)
+args(round)
+round(3.14159, digits = 2)</code></pre>
+<p>It is also possible (and very useful) to create your own functions</p>
+</div>
+<div id="vectors-and-data-types" class="section level2">
+<h2>Vectors and data types</h2>
+<p>We can save multiple values into a single variable, called a <strong>vector</strong>, using the <code>c()</code> function:</p>
+<pre class="r"><code>weight_g &lt;- c(50, 60, 65, 82)
+weight_g</code></pre>
+<p>Vectors can also contain characters:</p>
+<pre class="r"><code>animals &lt;- c(&quot;mouse&quot;, &quot;rat&quot;, &quot;dog&quot;)
+animals</code></pre>
+<p>Some useful functions:</p>
+<pre class="r"><code>length(weight_g)  # Counts the number of elements in the vector
+class(weight_g)   # Identifies the type of elements 
+str(weight_g)     # Display structure of object</code></pre>
+</div>
+<div id="datatypes-in-r" class="section level2">
+<h2>Datatypes in R</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>&quot;numeric&quot;</code></td>
+<td align="left">Numbers, including decimals</td>
+</tr>
+<tr class="even">
+<td align="left"><code>&quot;character&quot;</code></td>
+<td align="left">Strings (text)</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>&quot;logical&quot;</code></td>
+<td align="left">TRUE/FALSE (Boolean)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>&quot;integer&quot;</code></td>
+<td align="left">Integer values</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>&quot;factor&quot;</code></td>
+<td align="left">Categorial variables (including strings)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="subsetting-vectors" class="section level2">
+<h2>Subsetting vectors</h2>
+<p>Subsetting vectors is done using square brackets:</p>
+<pre class="r"><code>animals &lt;- c(&quot;mouse&quot;, &quot;rat&quot;, &quot;dog&quot;, &quot;cat&quot;)
+animals[2]
+animals[c(3, 2)]</code></pre>
+<p>Conditional subsetting can be done using <code>TRUE/FALSE</code>:</p>
+<pre class="r"><code>weight_g &lt;- c(21, 34, 39, 54, 55)
+weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]</code></pre>
+<p>We can combine logical operators, like <code>&lt;</code> and <code>&gt;</code>, with <code>TRUE/FALSE</code> to subset only <code>TRUE</code> values:</p>
+<pre class="r"><code>weight_g &gt; 50            # Returns vector of TRUE/FALSE
+weight_g[weight_g &gt; 50]   # Returns vector of only TRUE elements</code></pre>
+</div>
+<div id="multiple-subsets-using-and-and-or" class="section level2">
+<h2>Multiple subsets using AND and OR</h2>
+<p>We can subset on multiple conditions using <code>&amp;</code> for AND conditions (ie both are TRUE), and <code>|</code> for OR conditions (ie either are TRUE):</p>
+<pre class="r"><code>weight_g[weight_g &lt; 30 | weight_g &gt; 50]
+weight_g[weight_g &gt;= 30 &amp; weight_g == 21]</code></pre>
+<p>Notice that we use <code>==</code> when subsetting instead of <code>=</code>, which is an assigning operator</p>
+<p><code>a = 4</code> can be read as 4 <em>goes into</em> a</p>
+<p><code>a == 4</code> can be read as a <em>is equal to</em> 4</p>
+</div>
+<div id="searching-for-elements" class="section level2">
+<h2>Searching for elements</h2>
+<p>One common task is searching for certain values or string:</p>
+<pre class="r"><code>animals &lt;- c(&quot;bear&quot;, &quot;tiger&quot;, &quot;dog&quot;, &quot;cat&quot;, &quot;lion&quot;) 
+# Find pets
+animals[animals == &quot;dog&quot; | animals == &quot;cat&quot; | animals == &quot;mouse&quot;]</code></pre>
+<p>Using <code>|</code> can get tedious, instead use <code>%in%</code> to test if any elements in a search vector are present</p>
+<pre class="r"><code>pets &lt;- c(&quot;dog&quot;, &quot;cat&quot;, &quot;mouse&quot;)
+pets %in% animals
+pets[pets %in% animals]</code></pre>
+</div>
+<div id="reading-csv-datafiles-into-r" class="section level2">
+<h2>Reading CSV datafiles into R</h2>
+<p>We often store our data in comma seperated value (CSV) files, which can be read into R using the <code>read.csv()</code> function:</p>
+<pre class="r"><code># Download example .csv file
+download.file(&quot;https://ndownloader.figshare.com/files/2292169&quot;,
+              &quot;data/portal_data_joined.csv&quot;)
+
+# Save into variable 
+surveys &lt;- read.csv(&#39;data/portal_data_joined.csv&#39;)</code></pre>
+<p>Note: this code requires having a <code>data/</code> folder in your project</p>
+</div>
+<div id="functions-for-characterizing-dataframe" class="section level2">
+<h2>Functions for characterizing dataframe</h2>
+<p>We can run the name of the variable to view the dataframe, but often there will be too much information to display in the console</p>
+<p>Here are some useful functions for characterizing a dataframe:</p>
+<pre class="r"><code>head(surveys)     # Top of dataframe
+tail(surveys)     # Bottom of dataframe
+dim(surveys)      # Dimensions
+ncol(surveys)     # Number of columns
+nrow(surveys)     # Number of rows
+names(surveys)    # Column names
+rownames(surveys) # Row names
+str(surveys)      # Structure, with class, length, and content
+summary(surveys)  # Summary statistics for each columns</code></pre>
+</div>
+<div id="indexing-and-subsetting-dataframes" class="section level2">
+<h2>Indexing and subsetting dataframes</h2>
+<p>Dataframes are also subsetted or <em>indexed</em> with square brackets, expect we must specify rows then columns<code>[row,column]</code>:</p>
+<pre class="r"><code>surveys[1, 1]   # first element in the first column of the data frame (as a vector)
+surveys[1, 6]   # first element in the 6th column (as a vector)
+surveys[, 1]    # first column in the data frame (as a vector)
+surveys[1]      # first column in the data frame (as a data.frame)
+surveys[1:3, 7] # first three elements in the 7th column (as a vector)
+surveys[3, ]    # the 3rd element for all columns (as a data.frame)
+head_surveys &lt;- surveys[1:6, ] # equivalent to head(surveys)</code></pre>
+<p>Use the <code>-</code> sign to exclude certain sections:</p>
+<pre class="r"><code>surveys[,-1]          # The whole data frame, except the first column
+surveys[-c(7:34786),] # Equivalent to head(surveys)</code></pre>
+</div>
+<div id="subsetting-columns-by-name" class="section level2">
+<h2>Subsetting columns by name</h2>
+<p>Columns can be selected by name using the these operators:</p>
+<pre class="r"><code>surveys[&quot;species_id&quot;]       # Result is a data.frame
+surveys[, &quot;species_id&quot;]     # Result is a vector
+surveys[[&quot;species_id&quot;]]     # Result is a vector
+surveys$species_id          # Result is a vector</code></pre>
+</div>
+<div id="factors" class="section level2">
+<h2>Factors</h2>
+<p>Factors are used for storing categorical data, which are separated into <strong>levels</strong>:</p>
+<pre class="r"><code>sex &lt;- factor(c(&quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;))
+levels(sex)
+nlevels(sex)</code></pre>
+<p>We can rename the levels in a factor, either individually or all at once:</p>
+<pre class="r"><code>levels(sex)[1] &lt;- &quot;F&quot;       # Change the first element
+levels(sex) &lt;- c(&quot;F&quot;, &quot;M&quot;)  # Change all factors</code></pre>
+<p>Finally, we may want to convert factors to <code>char</code> or <code>numeric</code>:</p>
+<pre class="r"><code>as.character(sex)
+f &lt;- factor(c(1990, 1983, 1977, 1998, 1990))
+as.numeric(levels(f))[f] # We want to use the levels in this case</code></pre>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>What type of vectors are each of the columns in the <code>surveys</code> dataframe?</li>
+<li>How many <em>Neotoma albigula</em> were collected in 1990?</li>
+<li>Create a new dataframe that only contains records these <code>species_id</code>: RM, OL, and PP.</li>
+<li>With this new dataframe, use the <code>plot()</code> function to display the number of each <code>sex</code>. Be sure all levels are correctly labelled.</li>
+<li>Create a similar plot for the number of specimens caught in each year.</li>
+</ol>
+</div>
