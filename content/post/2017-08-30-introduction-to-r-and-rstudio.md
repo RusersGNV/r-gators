@@ -1,5 +1,5 @@
 ---
-title: Intro to R and RStudio
+title: Introduction to R and RStudio
 author: Justin Millar
 date: '2017-08-30'
 categories:
@@ -9,11 +9,8 @@ tags:
   - importing data
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+[link to pdf](../data/intro-to-r.pdf)
 
-[link to pdf](../data/intro-to-r.pdf). 
 <iframe src="../data/intro-to-r.pdf" width="100%" height="500px"></iframe>
 
 ## Links
@@ -37,11 +34,11 @@ RStudio is a free Integrated Development Environment (IDE) for working with R
 
 This provides a framework for:
 
-> - Writing code
-> - Navigating files
-> - Visualizing packages
-> - Creating projects
-> - Many other goodies (version control, making packages, Shiny apps)
+- Writing code
+- Navigating files
+- Visualizing packages
+- Creating projects
+- Many other goodies (version control, making packages, Shiny apps)
 
 
 ## RStudio Projects
@@ -79,7 +76,8 @@ Look at the Cheatsheets in the `Help` tab in RStudio
 
 We can assign *values* to *objects* using the assignment operator, and use R to do useful things:
 
-```{r, echo=TRUE, results=FALSE}
+
+```r
 weight_kg <- 55
 ```
 
@@ -87,7 +85,8 @@ You may come across code that assigns values using `=` instead of `<-`, which ca
 
 It is good practice to stick with`<-` for assigning values 
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 2.2 * weight_kg  # Do math with variables
 
 weight_kg <- 57.5  # Save over an variables with new value(s)
@@ -100,13 +99,15 @@ weight_lb <- 2.2 * weight_kg  # Create new variables with old ones
 
 **Functions** are "canned scripts" which automate series of commands on one or more inputs called **arguments**
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 b <- sqrt(a)
 ```
 
 Arguments can be anything (numbers, filenames, variables), *options* are arguments that take on default values which can be altered by the user
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 round(3.14159)
 args(round)
 round(3.14159, digits = 2)
@@ -118,20 +119,23 @@ It is also possible (and very useful) to create your own functions
 
 We can save multiple values into a single variable, called a **vector**, using the `c()` function:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 weight_g <- c(50, 60, 65, 82)
 weight_g
 ```
 
 Vectors can also contain characters:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 animals <- c("mouse", "rat", "dog")
 animals
 ```
 
 Some useful functions:
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 length(weight_g)  # Counts the number of elements in the vector
 class(weight_g)   # Identifies the type of elements 
 str(weight_g)     # Display structure of object
@@ -151,7 +155,8 @@ str(weight_g)     # Display structure of object
 
 Subsetting vectors is done using square brackets:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 animals <- c("mouse", "rat", "dog", "cat")
 animals[2]
 animals[c(3, 2)]
@@ -159,14 +164,16 @@ animals[c(3, 2)]
 
 Conditional subsetting can be done using `TRUE/FALSE`:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 weight_g <- c(21, 34, 39, 54, 55)
 weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
 ```
 
 We can combine logical operators, like `<` and `>`, with `TRUE/FALSE` to subset only `TRUE` values:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 weight_g > 50            # Returns vector of TRUE/FALSE
 weight_g[weight_g > 50]   # Returns vector of only TRUE elements
 ```
@@ -175,7 +182,8 @@ weight_g[weight_g > 50]   # Returns vector of only TRUE elements
 
 We can subset on multiple conditions using `&` for AND conditions (ie both are TRUE), and `|` for OR conditions (ie either are TRUE):
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 weight_g[weight_g < 30 | weight_g > 50]
 weight_g[weight_g >= 30 & weight_g == 21]
 ```
@@ -190,7 +198,8 @@ Notice that we use `==` when subsetting instead of `=`, which is an assigning op
 
 One common task is searching for certain values or string:
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 animals <- c("bear", "tiger", "dog", "cat", "lion") 
 # Find pets
 animals[animals == "dog" | animals == "cat" | animals == "mouse"]
@@ -198,7 +207,8 @@ animals[animals == "dog" | animals == "cat" | animals == "mouse"]
 
 Using `|` can get tedious, instead use `%in%` to test if any elements in a search vector are present
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 pets <- c("dog", "cat", "mouse")
 pets %in% animals
 pets[pets %in% animals]
@@ -208,7 +218,8 @@ pets[pets %in% animals]
 
 We often store our data in comma seperated value (CSV) files, which can be read into R using the `read.csv()` function:
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 # Download example .csv file
 download.file("https://ndownloader.figshare.com/files/2292169",
               "data/portal_data_joined.csv")
@@ -225,7 +236,8 @@ We can run the name of the variable to view the dataframe, but often there will 
 
 Here are some useful functions for characterizing a dataframe:
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 head(surveys)     # Top of dataframe
 tail(surveys)     # Bottom of dataframe
 dim(surveys)      # Dimensions
@@ -241,7 +253,8 @@ summary(surveys)  # Summary statistics for each columns
 
 Dataframes are also subsetted or *indexed* with square brackets, expect we must specify rows then columns`[row,column]`:
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 surveys[1, 1]   # first element in the first column of the data frame (as a vector)
 surveys[1, 6]   # first element in the 6th column (as a vector)
 surveys[, 1]    # first column in the data frame (as a vector)
@@ -253,7 +266,8 @@ head_surveys <- surveys[1:6, ] # equivalent to head(surveys)
 
 Use the `-` sign to exclude certain sections:
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 surveys[,-1]          # The whole data frame, except the first column
 surveys[-c(7:34786),] # Equivalent to head(surveys)
 ```
@@ -262,7 +276,8 @@ surveys[-c(7:34786),] # Equivalent to head(surveys)
 
 Columns can be selected by name using the these operators:
 
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 surveys["species_id"]       # Result is a data.frame
 surveys[, "species_id"]     # Result is a vector
 surveys[["species_id"]]     # Result is a vector
@@ -271,20 +286,23 @@ surveys$species_id          # Result is a vector
 
 ## Factors
 Factors are used for storing categorical data, which are separated into **levels**:
-```{r, echo=TRUE,eval=FALSE}
+
+```r
 sex <- factor(c("male", "female", "female", "male"))
 levels(sex)
 nlevels(sex)
 ```
 
 We can rename the levels in a factor, either individually or all at once:
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 levels(sex)[1] <- "F"       # Change the first element
 levels(sex) <- c("F", "M")  # Change all factors
 ```
 
 Finally, we may want to convert factors to `char` or `numeric`:
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 as.character(sex)
 f <- factor(c(1990, 1983, 1977, 1998, 1990))
 as.numeric(levels(f))[f] # We want to use the levels in this case
