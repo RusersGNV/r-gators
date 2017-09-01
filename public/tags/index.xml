@@ -21,20 +21,11 @@
     </item>
     
     <item>
-      <title>Ggplot</title>
-      <link>/tags/ggplot/</link>
-      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      <title>Importing Data</title>
+      <link>/tags/importing-data/</link>
+      <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggplot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Graphing</title>
-      <link>/tags/graphing/</link>
-      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/graphing/</guid>
+      <guid>/tags/importing-data/</guid>
       <description></description>
     </item>
     
@@ -44,6 +35,15 @@
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/rcpp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rstudio</title>
+      <link>/tags/rstudio/</link>
+      <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rstudio/</guid>
       <description></description>
     </item>
     

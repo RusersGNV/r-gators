@@ -15,3 +15,6 @@ The Data Carpentry curriculum is also offered as a 3 credit course (WIS 6934) in
 
 #### Stats Courses
 Many department across UF have courses in statistics that use R (as well as other programs). [Check out this site](https://ufstatscourses.shinyapps.io/shiny_tutorial/) to see all the stats courses across campus, and which ones use R. 
+
+#### Introduction to R for the Social Sciences Workshop series
+The  Department of Sociology and Criminology & Law, with UFII and the Marston Science Library, are offering a series of 8 weekly workshops focused on an introduction to the R programming language for data analysis in the social sciences in Fall 2017. Each workshop is free and open to all UF students, faculty, and staff, but spaces are limited. [Follow this link for more information](https://informatics.institute.ufl.edu/event/introduction-to-r-for-the-social-sciences-weekly-workshops/).  
