@@ -1,3 +1,6 @@
 public/
 themes
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
