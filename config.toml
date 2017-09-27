@@ -5,6 +5,10 @@ paginate = "6" # Number of posts per page
 theme = "Mainroad"
 disqusShortname = "r-gators" # Enable comments by entering your Disqus shortname
 googleAnalytics = "UA-75169517-2" # Enable Google Analytics by entering your tracking id
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
 
 [Author]
     name = "R-Gators"
