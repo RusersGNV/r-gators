@@ -9,11 +9,21 @@
     <atom:link href="/categories/meetup-presentation/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Data manipulation in the tidyverse</title>
+      <link>/2017/09/27/data-manipulation-in-the-tidyverse/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/27/data-manipulation-in-the-tidyverse/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;/scripts/dplyr-staylor.R&#34;&gt;link to R script&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Introduction to Dataframes in R </title>
-      <link>/post/2017-09-06-introduction-to-dataframes-in-r/</link>
+      <link>/2017/09/06/introduction-to-dataframes-in-r/</link>
       <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-09-06-introduction-to-dataframes-in-r/</guid>
+      <guid>/2017/09/06/introduction-to-dataframes-in-r/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;../data/intro-to-dataframes.pdf&#34;&gt;link to pdf&lt;/a&gt;&lt;/p&gt;
@@ -176,10 +186,10 @@ boxplot(surveys$weight ~ surveys$species_id)
     
     <item>
       <title>Introduction to R and RStudio</title>
-      <link>/post/2017-08-30-introduction-to-r-and-rstudio/</link>
+      <link>/2017/08/30/introduction-to-r-and-rstudio/</link>
       <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-08-30-introduction-to-r-and-rstudio/</guid>
+      <guid>/2017/08/30/introduction-to-r-and-rstudio/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;../data/intro-to-r.pdf&#34;&gt;link to pdf&lt;/a&gt;&lt;/p&gt;
@@ -504,10 +514,10 @@ as.numeric(levels(f))[f] # We want to use the levels in this case
     
     <item>
       <title>Speeding up R code using Rcpp and foreach packages</title>
-      <link>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
+      <link>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
+      <guid>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
       <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;

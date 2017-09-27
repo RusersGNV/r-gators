@@ -10,10 +10,10 @@
     
     <item>
       <title>Introduction to Dataframes in R </title>
-      <link>/post/2017-09-06-introduction-to-dataframes-in-r/</link>
+      <link>/2017/09/06/introduction-to-dataframes-in-r/</link>
       <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-09-06-introduction-to-dataframes-in-r/</guid>
+      <guid>/2017/09/06/introduction-to-dataframes-in-r/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;../data/intro-to-dataframes.pdf&#34;&gt;link to pdf&lt;/a&gt;&lt;/p&gt;
@@ -176,10 +176,10 @@ boxplot(surveys$weight ~ surveys$species_id)
     
     <item>
       <title>Introduction to R and RStudio</title>
-      <link>/post/2017-08-30-introduction-to-r-and-rstudio/</link>
+      <link>/2017/08/30/introduction-to-r-and-rstudio/</link>
       <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-08-30-introduction-to-r-and-rstudio/</guid>
+      <guid>/2017/08/30/introduction-to-r-and-rstudio/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;../data/intro-to-r.pdf&#34;&gt;link to pdf&lt;/a&gt;&lt;/p&gt;

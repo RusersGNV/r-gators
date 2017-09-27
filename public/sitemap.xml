@@ -2,22 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/post/2017-09-06-introduction-to-dataframes-in-r/</loc>
+    <loc>/2017/09/27/data-manipulation-in-the-tidyverse/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/09/06/introduction-to-dataframes-in-r/</loc>
     <lastmod>2017-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2017-08-30-introduction-to-r-and-rstudio/</loc>
+    <loc>/2017/08/30/introduction-to-r-and-rstudio/</loc>
     <lastmod>2017-08-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</loc>
+    <loc>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/upcoming-meeting-presentation-rcpp-and-foreach/</loc>
+    <loc>/2017/02/02/upcoming-meeting-presentation-rcpp-and-foreach/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -43,6 +48,18 @@
   </url>
   
   <url>
+    <loc>/tags/data-management/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dplyr/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/foreach/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -62,7 +79,7 @@
   
   <url>
     <loc>/categories/meetup-presentation/</loc>
-    <lastmod>2017-09-06T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -78,13 +95,13 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-09-06T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-09-06T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -110,6 +127,18 @@
   
   <url>
     <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyr/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

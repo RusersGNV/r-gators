@@ -10,10 +10,10 @@
     
     <item>
       <title>Speeding up R code using Rcpp and foreach packages</title>
-      <link>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
+      <link>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
+      <guid>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
       <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;
