@@ -2,24 +2,42 @@
 install.packages("tidyverse")
 
 # Load the package into your library
-library(tidyverse)
+dibrary(tidyverse)
 
 # Download the data file we're using today
 download.file("http://r-gators.com/weather.csv", "weather.csv")
 
-# Temperature and Precipitation of Gainesville from 1984 - 2017
+# Mean Temperature and Total Precipitation of Gainesville from 1984 - 2017
 # organized according to season
 weather <- read.csv("weather.csv")
 
-# ggplot
+# To draw a ggplot, we need to "add" multiple functions together
+# ggplot() builds a "drawing board", if you run this function alone,
+# you get a blank graph with axes, hence the analogy of drawing board 
+# it is waiting for you to specify what to draw on top.
+
+# geom_XXX() specifies what kind of data representation you want.
+# e.g. geom_boxplot() adds boxplots onto the drawing board
+# geom_point() adds scatterplots, geom_histogram() for historgram
+# Go to Help > R Cheatsheet to learn more about the geoms you can
+# do using ggplot
+
 # Season vs Temp
 ggplot(weather, aes(x=SEASON, y=TEMP)) +
   geom_boxplot()
 
 boxplot(TEMP ~ SEASON, data = weather) # base R plot example
 
+# ggplot's histogram
 ggplot(weather, aes(x=PRECIP)) +
   geom_histogram()
+
+hist(weather$PRECIP) # base R plot example
+
+# base R plots are sometimes faster to type, but the default aesthetics
+# are usually not as pleasant as ggplot.
+# Also ggplot offers to make grouping and facetting extremely easy
+# we will see some example later
 
 # Points and lines graph
 # Year vs Temp/Precip
@@ -29,6 +47,7 @@ ggplot(weather, aes(x=YEAR, y=TEMP)) +
 ggplot(weather, aes(x=YEAR, y=TEMP)) +
   geom_point() +
   geom_line()
+
 
 ggplot(weather, aes(x=YEAR, y=TEMP, col=SEASON, pch=SEASON, lty=SEASON)) +
   geom_point() +
