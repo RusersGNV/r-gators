@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rcpp on R-Gators</title>
-    <link>/tags/rcpp/index.xml</link>
+    <link>/tags/rcpp/</link>
     <description>Recent content in Rcpp on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rcpp/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Speeding up R code using Rcpp and foreach packages</title>
@@ -14,10 +17,8 @@
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/</guid>
-      <description>&lt;p&gt;Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation &lt;a href=&#34;../data/speeding-r-code.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;iframe src=&#34;../data/speeding-r-code.pdf&#34; width=&#34;100%&#34; height=&#34;700px&#34;&gt;&lt;/iframe&gt;
-</description>
+      <description>Download a pdf of Dr. Albuquerque&amp;rsquo;s presentation here.
+ </description>
     </item>
     
   </channel>

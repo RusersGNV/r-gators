@@ -6,10 +6,37 @@
     <description>Recent content in Tags on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Feb 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Oct 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Base R</title>
+      <link>/tags/base-r/</link>
+      <pubDate>Wed, 25 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/base-r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Management</title>
+      <link>/tags/data-management/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/data-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dplyr</title>
+      <link>/tags/dplyr/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dplyr/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Foreach</title>
@@ -23,9 +50,36 @@
     <item>
       <title>Importing Data</title>
       <link>/tags/importing-data/</link>
-      <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/importing-data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Intro</title>
+      <link>/tags/intro/</link>
+      <pubDate>Wed, 25 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/intro/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Loops</title>
+      <link>/tags/loops/</link>
+      <pubDate>Wed, 25 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/loops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Plotting</title>
+      <link>/tags/plotting/</link>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/plotting/</guid>
       <description></description>
     </item>
     
@@ -44,6 +98,24 @@
       <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidyr</title>
+      <link>/tags/tidyr/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidyr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidyverse</title>
+      <link>/tags/tidyverse/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidyverse/</guid>
       <description></description>
     </item>
     

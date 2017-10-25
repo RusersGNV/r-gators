@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Announcements on R-Gators</title>
-    <link>/categories/announcements/index.xml</link>
+    <link>/categories/announcements/</link>
     <description>Recent content in Announcements on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/categories/announcements/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/announcements/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Upcoming Meeting Presentation: Rcpp and foreach</title>
@@ -14,28 +17,9 @@
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/02/02/upcoming-meeting-presentation-rcpp-and-foreach/</guid>
-      <description>&lt;p&gt;Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:&lt;/p&gt;
-
-&lt;p&gt;Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque
-Time: 4 to 6pm
-Date: Feb 8 (Wednesday)
-Venue: Marston Science Library Room L136&lt;/p&gt;
-
-&lt;p&gt;We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster! And of course it&amp;rsquo;s always interesting to take note on what R and its package can help you with, even if you don&amp;rsquo;t have such problem currently.&lt;/p&gt;
-
-&lt;p&gt;As usual, you&amp;rsquo;ll get to interact, help and get help from other R users after the presentation. Drinks will be provided, so please bring your computer, questions, and expertise! And please do not hesitate to contact me (kokbent@ufl.edu&lt;a href=&#34;mailto:kokbent@ufl.edu&#34;&gt;kokbent@ufl.edu&lt;/a&gt;) or Justin (jjmillar@ufl.edu&lt;a href=&#34;mailto:jjmillar@ufl.edu&#34;&gt;jjmillar@ufl.edu&lt;/a&gt;) if you have any enquiry or feedback&lt;/p&gt;
-
-&lt;p&gt;If you have friends and colleagues who wish to join the UF R users mailing list, fill in the form here&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt; (&lt;a href=&#34;http://tinyurl.com/UFRUser&#34;&gt;http://tinyurl.com/UFRUser&lt;/a&gt;) or email us.&lt;/p&gt;
-
-&lt;p&gt;Also, please feel free to ask your R questions via this mailing list&lt;/p&gt;
-
-&lt;p&gt;See you on Wednesday!
-Ben&lt;/p&gt;
-
-&lt;p&gt;This list strives to be beginner friendly.  However, we still ask that you
-PLEASE do read the posting guide &lt;a href=&#34;http://www.R-project.org/posting-guide.html&#34;&gt;http://www.R-project.org/posting-guide.html&lt;/a&gt;
-and provide commented, minimal, self-contained, reproducible code.&lt;/p&gt;
-</description>
+      <description>Here&amp;rsquo;s the details for this week&amp;rsquo;s R meetup session:
+Presentation: &amp;ldquo;Speeding up R code using Rcpp and foreach packages&amp;rdquo; by Dr Pedro Albuquerque Time: 4 to 6pm Date: Feb 8 (Wednesday) Venue: Marston Science Library Room L136
+We think this week&amp;rsquo;s presentation topic will be very useful for those of us who have (or planning to write) R codes take up lots of computing power and time. By leveraging on C++, via Rcpp, and package such as foreach, it is possible to get your job done faster!</description>
     </item>
     
   </channel>
