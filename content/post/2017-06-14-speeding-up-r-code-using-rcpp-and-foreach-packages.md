@@ -12,6 +12,6 @@ description: ''
 thumbnail: ''
 ---
 
-Download a pdf of Dr. Albuquerque's presentation [here](../data/speeding-r-code.pdf). 
+Download a pdf of Dr. Albuquerque's presentation [here](/img/speeding-r-code.pdf). 
 
-<iframe src="../data/speeding-r-code.pdf" width="100%" height="700px"></iframe>
+<iframe src="/img/speeding-r-code.pdf" width="100%" height="700px"></iframe>

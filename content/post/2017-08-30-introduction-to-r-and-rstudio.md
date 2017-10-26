@@ -9,9 +9,9 @@ tags:
   - importing data
 ---
 
-[link to pdf](../data/intro-to-r.pdf)
+[link to pdf](/pdf/intro-to-r.pdf)
 
-<iframe src="../data/intro-to-r.pdf" width="100%" height="500px"></iframe>
+<iframe src="/pdf/intro-to-r.pdf" width="100%" height="500px"></iframe>
 
 ## Links
 - [Etherpad notes](https://board.net/p/ufr-2017-08-30)

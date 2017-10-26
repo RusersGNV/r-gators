@@ -11,9 +11,9 @@ tags:
   - intro
 ---
 
-[link to pdf](../data/intro-to-dataframes.pdf)
+[link to pdf](/pdf/intro-to-dataframes.pdf)
 
-<iframe src="../data/intro-to-dataframes.pdf" width="100%" height="500px"></iframe>
+<iframe src="/pdf/intro-to-dataframes.pdf" width="100%" height="500px"></iframe>
 
 
 
