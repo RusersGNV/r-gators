@@ -1,0 +1,296 @@
+---
+title: RMarkdown and bookdown
+author: A. Christine Swanson
+date: '2017-11-01'
+slug: rmarkdown-and-bookdown
+categories:
+  - Meetup Presentation
+tags:
+  - rstudio
+  - markdown
+  - documents
+description: ''
+thumbnail: ''
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This is an introductory post into using Bookdown. Bookdown is a powerful package that allows you to create documents embedding images, tables, and code. One great reason to use Bookdown is that you can put results and images from your code directly into your text, which reduces the chances of copying errors. For this post, I’m going to focus on creating an HTML document, though you can also create outputs in Word and PDF formats. To create PDFs, you will also need to download LaTeX. <strong>Note: throughout this document, I will be showing a code in separate boxes. To get the code to display, instead of run, the code will be commented out (with “#”). To actually run the code, you will need to remove the comment character.</strong></p>
+</div>
+<div id="formatting-text" class="section level1">
+<h1>Formatting text</h1>
+<p>The first part of this will discuss different text formatting. This is not an extensive list of what you can do with R Markdown and text, but it will cover the basics. The top part of the document is the YAML, which stands for <em>Yet Another Markup Language</em>. The YAML has a lot of the commands which control the formatting of your text. For this presentation, we’re going to keep it simple, and only include the basics. The YAML goes at the top of the document. Some items are optional, such as the title, author, and date, but output format is necessary.</p>
+<p>YAML:</p>
+<pre><code>---
+title: &quot;This is my title&quot;
+author: &quot;Name here&quot;
+date: &quot;Today&#39;s date&quot;
+output: 
+  bookdown::html_document2
+---</code></pre>
+<div id="italics" class="section level2">
+<h2>Italics</h2>
+<p>Markdown:</p>
+<pre><code>*words*</code></pre>
+<p>Output:</p>
+<p><em>words</em></p>
+</div>
+<div id="bold" class="section level2">
+<h2>Bold</h2>
+<p>Markdown:</p>
+<pre><code>**words**</code></pre>
+<p>Output:</p>
+<p><strong>words</strong></p>
+</div>
+<div id="bullets" class="section level2">
+<h2>Bullets</h2>
+<p>Markdown:</p>
+<pre><code>* words
+* more words</code></pre>
+<p>Output:</p>
+<ul>
+<li>Words</li>
+<li>More words</li>
+</ul>
+</div>
+<div id="headers" class="section level2">
+<h2>Headers</h2>
+<p>Markdown:</p>
+<pre><code># Top level header
+## Second level header
+### Third level header
+#### Fourth level header
+
+Note: in Bookdown, you can add {-} if you don&#39;t want the header to be numbered. </code></pre>
+<p>Output:</p>
+</div>
+</div>
+<div id="top-level-header" class="section level1 unnumbered">
+<h1>Top level header</h1>
+<div id="second-level-header" class="section level2 unnumbered">
+<h2>Second level header</h2>
+<div id="third-level-header" class="section level3 unnumbered">
+<h3>Third level header</h3>
+<div id="fourth-level-header" class="section level4 unnumbered">
+<h4>Fourth level header</h4>
+</div>
+</div>
+<div id="links" class="section level3 unnumbered">
+<h3>Links</h3>
+<p>You can put links in like this:</p>
+<pre><code>[Link text](www.linkaddress.com)</code></pre>
+</div>
+</div>
+</div>
+<div id="adding-code" class="section level1">
+<h1>Adding Code</h1>
+<p>You can add code by putting in three backticks:</p>
+<pre><code># ```
+# Code goes here 
+# ```</code></pre>
+<p>You can choose different languages by defining the languages in the curly brackets</p>
+<pre><code># ```{r}
+# Code in R
+# ```
+# ```{python}
+# Code in python
+# ```</code></pre>
+<div id="muting-code" class="section level2">
+<h2>Muting code</h2>
+<p>Sometimes, you want to run the code without displaying it or the output. In the curly brackets, you can add in information on how you want the code to perform.</p>
+<pre><code># ```{r include = FALSE}
+# print(&quot;Include determines whether the code and output is put into the text or not&quot;)
+# ```</code></pre>
+</div>
+<div id="showing-output-without-code" class="section level2">
+<h2>Showing output without code</h2>
+<p>Other times, you may want to show the output, but without showing the code. The “echo” commands controls whether the code displays or not.</p>
+<pre><code># ```{r echo = FALSE}
+# print(&quot;The echo command removes the code&quot;)
+# ```</code></pre>
+<pre><code>## [1] &quot;The echo command removes the code&quot;</code></pre>
+</div>
+<div id="showing-code-without-output" class="section level2">
+<h2>Showing code without output</h2>
+<p>If you want to display the code without running it, you can use the “eval” command.</p>
+<pre><code># ```{r eval = FALSE}
+# print(&quot;The eval command determines whether you run the code.&quot;)
+# ```</code></pre>
+<pre class="r"><code>print(&quot;The eval command determines whether you run the code.&quot;)</code></pre>
+</div>
+<div id="removing-warnings-and-error-messages" class="section level2">
+<h2>Removing warnings and error messages</h2>
+<p>Often, you can get warnings and messages which you don’t want to display in your documents, especially when loading packages. You can control whether these display with the “message” and “warning” commands.</p>
+<pre><code># ```{r message = FALSE, warning = FALSE}
+# pint(&quot;Message controls whether messages display.&quot;)
+# print(&quot;Warning controls whether warnings display.&quot;)
+# ```</code></pre>
+<pre><code>## [1] &quot;Message controls whether messages display.&quot;</code></pre>
+<pre><code>## [1] &quot;Warning controls whether warnings display.&quot;</code></pre>
+</div>
+<div id="inline-code" class="section level2">
+<h2>Inline code</h2>
+<p>You can also show the code inline.</p>
+<pre><code>Two plus two = `#r 2+2`</code></pre>
+<p>Two plus two = 4</p>
+</div>
+</div>
+<div id="adding-images" class="section level1">
+<h1>Adding images</h1>
+<div id="from-a-disk" class="section level2">
+<h2>From a disk</h2>
+<p>To add an image from a disk, you have to point the code to where you want it to look</p>
+<pre><code># ```{r}
+#knitr::include_graphics(&#39;folder/file.jpg&#39;)
+#```</code></pre>
+<p><img src="D:/Pictures/Arizona%202017/edits/IMG_5925.jpg" /><!-- --></p>
+</div>
+<div id="from-your-code" class="section level2">
+<h2>From your code</h2>
+<p>But you can also add in images from your code. This is one of the most useful functions of R Markdown because any time you update the code, it will automatically update the image.</p>
+<pre><code># ```{r}
+# plot(mtcars$hp, mtcars$mpg)
+# ```</code></pre>
+<p><img src="/post/2017-11-01-rmarkdown-and-bookdown_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="referencing-figures" class="section level2">
+<h2>Referencing figures</h2>
+<p>You can also caption figures and refer back to them in the text.</p>
+<pre><code>Plot the image in the code: 
+
+# ```{r hp, fig.cap= &quot;Relationship between horsepower and miles per gallon&quot;}
+# plot(mtcars$hp, mtcars$mpg)
+# ```
+
+Then call the image in the text (Figure \@ref(fig:hp)).</code></pre>
+<div class="figure"><span id="fig:hp"></span>
+<img src="/post/2017-11-01-rmarkdown-and-bookdown_files/figure-html/hp-1.png" alt="Relationship between horsepower and miles per gallon" width="672" />
+<p class="caption">
+Figure 1: Relationship between horsepower and miles per gallon
+</p>
+</div>
+<p>Then call the image in the text (Figure <a href="#fig:hp">1</a>).</p>
+<p>You can do the same for figures you call from your disk:</p>
+<pre><code># ```{r horseshoe, fig.cap = &quot;Horseshoe Bend&quot;}
+#knitr::include_graphics(&#39;folder/file.jpg&#39;)
+#
+#Look at this picture of Horseshoe Bend (Figure \ref@(fig:horseshoe)).
+#```</code></pre>
+<div class="figure"><span id="fig:horseshoe"></span>
+<img src="D:/Pictures/Arizona 2017/edits/IMG_5925.jpg" alt="Horseshoe Bend"  />
+<p class="caption">
+Figure 2: Horseshoe Bend
+</p>
+</div>
+<p>Look at this picture of Horseshoe Bend (Figure <a href="#fig:horseshoe">2</a>).</p>
+</div>
+</div>
+<div id="adding-tables" class="section level1">
+<h1>Adding tables</h1>
+<p>R-markdown is not great for tables. However, there is the kable function in Knitr, which is really useful.</p>
+<pre><code>#```{r foo}
+#install.packages(&quot;knitr&quot;)
+#library(knitr)
+
+#knitr::kable(
+#  head(mtcars[,1:4]),
+#  caption = &quot;The first few rows of mtcars&quot;
+#)
+#
+#Check out some data in Table \@ref(tab:foo)
+#```</code></pre>
+<table>
+<caption><span id="tab:foo">Table 1: </span>The first few rows of mtcars</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+</tr>
+<tr class="even">
+<td>Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+</tr>
+<tr class="odd">
+<td>Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+</tr>
+<tr class="even">
+<td>Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+</tr>
+<tr class="odd">
+<td>Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+</tr>
+<tr class="even">
+<td>Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+</tr>
+</tbody>
+</table>
+<p>Check out some data in Table <a href="#tab:foo">1</a></p>
+</div>
+<div id="adding-equations" class="section level1">
+<h1>Adding equations</h1>
+<div id="inline" class="section level2">
+<h2>Inline</h2>
+<p>Inline equations are denoted with the $</p>
+<pre><code>This is my equation: $\alpha = \beta$</code></pre>
+<p>This is my equation: <span class="math inline">\(\alpha = \beta\)</span></p>
+</div>
+<div id="on-a-separate-line" class="section level2">
+<h2>On a separate line</h2>
+<p>If you want your equation to appear on a separate line, you can use $$</p>
+<pre><code>This is my equation: $$ \alpha = \beta $$</code></pre>
+<p>This is my equation: <span class="math display">\[\alpha = \beta\]</span></p>
+</div>
+<div id="referenced-equations" class="section level2">
+<h2>Referenced equations</h2>
+<p>Often, you want to number your equations so you can refer to them in the text. This takes a little bit more work but is still do-able.</p>
+<pre><code>\begin{equation}
+\alpha = \beta
+(\#eq:alpha)
+\end{equation}</code></pre>
+<p>This is a numbered equation:</p>
+<span class="math display" id="eq:alpha">\[\begin{equation}
+\alpha = \beta
+\tag{1}
+\end{equation}\]</span>
+<p>Refer to Equation <a href="#eq:alpha">(1)</a>.</p>
+</div>
+</div>
+<div id="useful-resources" class="section level1">
+<h1>Useful resources</h1>
+<p><a href="https://bookdown.org/">Bookdown walk-through</a></p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown cheatsheet</a></p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">R Markdown cheatsheet 2.0</a></p>
+</div>

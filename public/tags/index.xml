@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Documents</title>
+      <link>/tags/documents/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/documents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Dplyr</title>
       <link>/tags/dplyr/</link>
       <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
@@ -75,6 +84,15 @@
     </item>
     
     <item>
+      <title>Markdown</title>
+      <link>/tags/markdown/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Plotting</title>
       <link>/tags/plotting/</link>
       <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
@@ -95,7 +113,7 @@
     <item>
       <title>Rstudio</title>
       <link>/tags/rstudio/</link>
-      <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstudio/</guid>
       <description></description>
