@@ -84,6 +84,15 @@
     </item>
     
     <item>
+      <title>Mapping</title>
+      <link>/tags/mapping/</link>
+      <pubDate>Wed, 15 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mapping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Markdown</title>
       <link>/tags/markdown/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
@@ -116,6 +125,15 @@
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spatial</title>
+      <link>/tags/spatial/</link>
+      <pubDate>Wed, 15 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/spatial/</guid>
       <description></description>
     </item>
     
