@@ -6,10 +6,20 @@
     <description>Recent content on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Nov 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cross-validation</title>
+      <link>/2017/11/29/cross-validation/</link>
+      <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/11/29/cross-validation/</guid>
+      <description>In this article, we will be talking about the importance of cross-validation to choose the best model. To do this, we will show:
+the problem of using simple in-sample metrics for model selection with a univariate examplethe problem of using simple in-sample metrics for model selection with a multivariable examplehow to perform cross-validation using simple linear regression and some problems associated with this1) The problem of using simple in-sample metrics for model seelction with a univariate exampleWhen dealing with a regression model, we are often interested in determining which covariates to keep in the model and which to through away.</description>
+    </item>
     
     <item>
       <title>Mapping in R exercise</title>

@@ -13,7 +13,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-11-15T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2017-11-29T00:00:00&#43;00:00"/>
 
 
 
@@ -67,6 +67,24 @@ ga('send', 'pageview');
 		<header class="page-header">
 			<h1 class="page-header__title">Meetup Presentation</h1>
 		</header>
+				<article class="list__item post clearfix">
+	<div class="list__content clearfix">
+		<header class="list__header">
+			<h3 class="list__title post__title ">
+				<a href="/2017/11/29/cross-validation/" rel="bookmark">Cross-validation</a>
+			</h3>
+			<div class="list__meta meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="list__meta-date" datetime="2017-11-29T00:00:00">November 29, 2017</time>
+			</div>
+		</header>
+		<div class="list__excerpt">
+			In this article, we will be talking about the importance of cross-validation to choose the best model. To do this, we will show:
+the problem of using simple in-sample metrics for model selection with a univariate examplethe problem of using simple in-sample metrics for model selection with a multivariable examplehow to perform cross-validation using simple linear regression and some problems associated with this1) The problem of using simple in-sample metrics for model seelction with a univariate exampleWhen dealing with a regression model, we are often interested in determining which covariates to keep in the model and which to through away.
+		</div>
+	</div>
+</article>
+
 				<article class="list__item post clearfix">
 	<div class="list__content clearfix">
 		<header class="list__header">
@@ -154,26 +172,6 @@ ga('send', 'pageview');
 	</div>
 </article>
 
-				<article class="list__item post clearfix">
-	<div class="list__content clearfix">
-		<header class="list__header">
-			<h3 class="list__title post__title ">
-				<a href="/2017/09/06/introduction-to-dataframes-in-r/" rel="bookmark">Introduction to Dataframes in R </a>
-			</h3>
-			<div class="list__meta meta">
-				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-				<time class="list__meta-date" datetime="2017-09-06T00:00:00">September 06, 2017</time>
-			</div>
-		</header>
-		<div class="list__excerpt">
-			link to pdf
- Reading CSV datafiles into R We often store our data in comma seperated value (CSV) files, which can be read into R using the read.csv() function:
-# Download example .csv file download.file(&quot;https://ndownloader.figshare.com/files/2292169&quot;, &quot;data/portal_data_joined.csv&quot;) # Save into variable surveys &lt;- read.csv('data/portal_data_joined.csv')  Note: this code requires having a data/ folder in your project
-Functions for characterizing dataframe We can run the name of the variable to view the dataframe, but often there will be too much information to display in the console
-		</div>
-	</div>
-</article>
-
 
 		
 <div class="pagination clearfix">
@@ -190,6 +188,7 @@ Functions for characterizing dataframe We can run the name of the variable to vi
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/2017/11/29/cross-validation/">Cross-validation</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/11/15/mapping-in-r-exercise/">Mapping in R exercise</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/11/01/rmarkdown-and-bookdown/">RMarkdown and bookdown</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/10/25/loops-in-r/">Loops in R</a></li>
@@ -252,10 +251,12 @@ Functions for characterizing dataframe We can run the name of the variable to vi
 		<a class="widget__link widget__link--taglist" href="/tags/loops" title="loops">loops</a>
 		<a class="widget__link widget__link--taglist" href="/tags/mapping" title="mapping">mapping</a>
 		<a class="widget__link widget__link--taglist" href="/tags/markdown" title="markdown">markdown</a>
+		<a class="widget__link widget__link--taglist" href="/tags/modelling" title="modelling">modelling</a>
 		<a class="widget__link widget__link--taglist" href="/tags/plotting" title="plotting">plotting</a>
 		<a class="widget__link widget__link--taglist" href="/tags/rcpp" title="rcpp">rcpp</a>
 		<a class="widget__link widget__link--taglist" href="/tags/rstudio" title="rstudio">rstudio</a>
 		<a class="widget__link widget__link--taglist" href="/tags/spatial" title="spatial">spatial</a>
+		<a class="widget__link widget__link--taglist" href="/tags/statistics" title="statistics">statistics</a>
 		<a class="widget__link widget__link--taglist" href="/tags/tidyr" title="tidyr">tidyr</a>
 		<a class="widget__link widget__link--taglist" href="/tags/tidyverse" title="tidyverse">tidyverse</a>
 	</div>

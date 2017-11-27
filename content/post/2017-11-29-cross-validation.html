@@ -1,0 +1,153 @@
+---
+title: Cross-validation
+author: Denis Valle
+date: '2017-11-29'
+slug: cross-validation
+categories:
+  - Meetup Presentation
+tags:
+  - statistics
+  - modelling
+description: ''
+thumbnail: ''
+---
+
+
+
+<p>In this article, we will be talking about the importance of cross-validation to choose the best model. To do this, we will show:</p>
+<ol style="list-style-type: decimal">
+<li>the problem of using simple in-sample metrics for model selection with a univariate example</li>
+<li>the problem of using simple in-sample metrics for model selection with a multivariable example</li>
+<li>how to perform cross-validation using simple linear regression and some problems associated with this</li>
+</ol>
+<div id="the-problem-of-using-simple-in-sample-metrics-for-model-seelction-with-a-univariate-example" class="section level2">
+<h2>1) The problem of using simple in-sample metrics for model seelction with a univariate example</h2>
+<p>When dealing with a regression model, we are often interested in determining which covariates to keep in the model and which to through away. This is an important problem because we often have lots of covariates but not that many observations, which is often referred to in the literature as small N large P problem (N and P stand for number of observations and number of parameters, respectively).</p>
+<p>This is a problem even if we do not have many independent covariates because we often want to model non-linear relationships. One very common option is to keep on adding additional higher order terms (e.g., <span class="math inline">\(x,x^2,x^3,x^4\)</span>). These polynomials can represent very different relationships (actually any smooth continuous function, as proved by Taylor expansion). We don’t need to rely on polynomials; we can also add our covariate in multiple forms (e.g., <span class="math inline">\(x,\frac{1}{x},log(x),\sqrt{x}\)</span>), as in Generalized Additive Models (GAM). Yet another option is to use splines but we are not going to go into this here.</p>
+<p>However, there are several problems of having too many covariates in our model. First, we would potentially be spreading our data very thin, with few observations per parameter being estimated. As a result, we might have little power to statistically identify important relationships with this approach. Furthermore, we might be over-fitting our data. In other words, we might be perfectly fitting our data, both signal and noise. This is simple to illustrate when we keep adding polynomial terms to our regression. For instance, consider the situation below where we have four points. Clearly, the fit to the data improves as the model becomes more complex (from linear, to a quadratic, to a cubic model). Indeed, the cubic model perfectly fits these data despite the fact that these data were generated using the equation of a line (top panel). Furthermore, it is important to note that the cubic model might have very poor predictive skill. For instance, notice how these models have drastically different predictions when extrapolated (bottom panel).</p>
+<pre class="r"><code>set.seed(1)
+x=c(1,3,5,7)
+y=rnorm(4,mean=x,sd=1)
+dat=data.frame(x=x,y=y,x2=x^2,x3=x^3)
+
+par(mfrow=c(1,2),mar=rep(4,4))
+
+#interpolation
+plot(y~x,data=dat,main=&#39;interpolation&#39;)
+k=lm(y~x,data=dat)
+x1=seq(from=-2,to=10,length.out=1000)
+lines(x1,k$coef[1]+k$coef[2]*x1)
+
+k=lm(y~x+x2,data=dat)
+lines(x1,k$coef[1]+k$coef[2]*x1+k$coef[3]*(x1^2),col=&#39;red&#39;)
+
+k=lm(y~x+x2+x3,data=dat)
+lines(x1,k$coef[1]+k$coef[2]*x1+k$coef[3]*(x1^2)+k$coef[4]*(x1^3),col=&#39;blue&#39;)
+legend(1,8,col=c(&#39;black&#39;,&#39;red&#39;,&#39;blue&#39;),c(&#39;linear&#39;,&#39;quadratic&#39;,&#39;cubic&#39;),lty=1)
+
+#extrapolation
+plot(y~x,data=dat,xlim=c(-2,10),ylim=c(-10,30),main=&#39;extrapolation&#39;)
+k=lm(y~x,data=dat)
+x1=seq(from=-2,to=10,length.out=1000)
+lines(x1,k$coef[1]+k$coef[2]*x1)
+
+k=lm(y~x+x2,data=dat)
+lines(x1,k$coef[1]+k$coef[2]*x1+k$coef[3]*(x1^2),col=&#39;red&#39;)
+
+k=lm(y~x+x2+x3,data=dat)
+lines(x1,k$coef[1]+k$coef[2]*x1+k$coef[3]*(x1^2)+k$coef[4]*(x1^3),col=&#39;blue&#39;)</code></pre>
+<p><img src="/post/2017-11-29-cross-validation_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>These results suggest that using in-sample metrics (e.g., sum of the distance of each point to the line) might lead us to incorrectly select the cubic model as the best model.</p>
+</div>
+<div id="the-problem-of-using-simple-in-sample-metrics-for-model-selection-with-a-multivariable-example" class="section level2">
+<h2>2) The problem of using simple in-sample metrics for model selection with a multivariable example</h2>
+<p>The same problem happens when we have several independent covariates. For example, say we generate a simulated dataset with 10 covariates where only the first two covariates influenced the response variable. Here is how we generate this simulated dataset:</p>
+<pre class="r"><code>#generate fake data
+set.seed(1)
+n=10000
+ncov=10
+xmat=matrix(rnorm(n*ncov),n,ncov)
+colnames(xmat)=paste(&#39;x&#39;,1:ncov,sep=&#39;&#39;)
+b0=-1; b1=2; b2=2
+y=rnorm(n,mean=b0+b1*xmat[,&#39;x1&#39;]+b2*xmat[,&#39;x2&#39;],sd=1) #only x1 and x2 are important covariates
+dat=data.frame(cbind(y,xmat))</code></pre>
+<p>Now we can iteratively fit linear regression models with the following covariates:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(x_1\)</span>,</li>
+<li><span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>,</li>
+<li><span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span>,</li>
+<li>…</li>
+</ol>
+<pre class="r"><code>#iteratively fit a lm with 1,2,...,10 covariates and calculate MSE
+MSE=rep(NA,ncov)
+for (i in 1:ncov){
+  nomes=c(&#39;y&#39;,paste(&#39;x&#39;,1:i,sep=&#39;&#39;))
+  dat.tmp=dat[,nomes]
+  k=lm(y~.,data=dat.tmp)
+  MSE[i]=mean(k$residuals^2)
+}
+plot(1:ncov,MSE,type=&#39;l&#39;,xlab=&#39;Number of covariates&#39;)</code></pre>
+<p><img src="/post/2017-11-29-cross-validation_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>While this graph suggests that there is very little improvement after adding the first two covariates, a closer look at this graph (see below) indicates that the MSE keeps on decreasing as we increase the number of covariates. Therefore, if we were to pick the best model according to this criterion, we would choose the model with 10 covariates. This is clearly incorrect given that we know that only the first two covariates are important and that <span class="math inline">\(x_3,...,x_{10}\)</span> are not associated with our response variable y.</p>
+<pre class="r"><code>plot(2:ncov,MSE[-1],type=&#39;l&#39;,xlab=&#39;Number of covariates&#39;)</code></pre>
+<p><img src="/post/2017-11-29-cross-validation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><span style="color:red">Would we observed the same pattern if we had used a different in-sample metric (e.g., <span class="math inline">\(R^2\)</span>)? To this end, you are going to need the following code:</span></p>
+<pre class="r"><code>k=lm(y~.,data=dat.tmp)
+k1=summary(k)
+k1$r.squared</code></pre>
+<p>If the same pattern arises regardless of the in-sample metric, then what should we do?</p>
+</div>
+<div id="performing-cross-validation" class="section level2">
+<h2>3) Performing cross-validation</h2>
+<p>The major problem with the examples above is that they rely on in-sample metrics. In other words, these metrics measure how well the model fits the dataset that was used to train it but perhaps a better metric would be to see how well the model predicts new datasets. This is the key idea of cross-validation. We train our model on a subset of the data (i.e., training data) and see how well it predicts the rest of the dataset (i.e., validation data). There are multiple types of validation schemes depending on how much of the data is used for training and for validation. Here, we are going to focus on a 10 fold cross-validation. In this type of cross-validation, we divide up our dataset into 10 chunks. We then train our model on 9 chunks and use the last chunk as the validation dataset. The goal is to do this 10 times, each time leaving a different chunk of the dataset for validation purposes. Let’s see if this works.</p>
+<pre class="r"><code>#iteratively fit a lm with 1,2,...,10 covariates 
+#then use cross-validation to calculate the out-of-sample MSE
+nvalid=10
+MSE=matrix(NA,nvalid,ncov)
+ind=rep(1:nvalid,each=nrow(dat)/nvalid)
+for (i in 1:ncov){
+  nomes=c(&#39;y&#39;,paste(&#39;x&#39;,1:i,sep=&#39;&#39;))
+  for (j in 1:nvalid){
+    #train the model on 9 chunks
+    ind.train=which(ind!=j)
+    dat.train=dat[ind.train,nomes]
+    k=lm(y~.,data=dat.train)
+    
+    #make predictions for the left-out chunk
+    ind.pred=which(ind==j)
+    dat.pred=dat[ind.pred,nomes]
+    k=predict(k,newdata=dat.pred)
+    MSE[j,i]=mean((dat$y[ind.pred]-k)^2)
+  }
+}
+
+#get ranking of each model
+rank=matrix(NA,nvalid,ncov)
+for (i in 1:nvalid){
+  ind=order(MSE[i,])
+  rank[i,ind]=1:10
+}
+boxplot(rank,xlab=&#39;Number of covariates&#39;,ylab=&#39;Model ranking&#39;)
+abline(h=1:10,col=&#39;grey&#39;,lty=3)</code></pre>
+<p><img src="/post/2017-11-29-cross-validation_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>These results suggests that the model with 2 covariates often performs well but definitively not always. The problem with this approach is that we just tested 10 different models and this worked because the true model was one of these 10 models. However, there are many more possible models. To be precise, we have <span class="math inline">\(2^{10}=1024\)</span> potential models. While it is possible to do a 10 fold cross-validation for each of these models, it will probably take a long time.</p>
+<p><span style="color:red">By the way, how would we change this code to perform a 20-fold cross-validation? Do we get different results?</span></p>
+</div>
+<div id="does-model-selection-based-on-aic-work" class="section level2">
+<h2>4) Does model selection based on AIC work?</h2>
+<p>One potential way to avoid testing each of these 1024 possible models is to use model selection procedures which are based on the idea of iteratively adding and/or removing covariates based on different criteria, such as p-values or AIC. Here we are going to focus on stepwise model selection using AIC. The key pieces of code that we will need are provide below.</p>
+<pre class="r"><code>k=lm(y~.,data=dat.train)
+step1 &lt;- stepAIC(k, direction=&quot;both&quot;)
+k2=predict(step1,newdata=dat.pred)</code></pre>
+<p><span style="color:red">The main questions we are trying to answer using a 10-fold cross-validation are: a) Does model selection based on AIC yield better results than simply using all covariates? 2) Does model selection using AIC always identify the true covariates? </span></p>
+<p>If you want to read more about model selection with a particular focus on Bayesian models, you can find more information here <span class="citation">[@hootenandhobbs2015]</span></p>
+<p><br></br> <br></br></p>
+<div id="comments" class="section level3">
+<h3>Comments?</h3>
+<p>Send me an email at <img src="\img\valle_email.png" /></p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Hooten, M. B., and N. T. Hobbs. 2015. “A Guide to Bayesian Model Selection for Ecologists.” Ecological Monographs 85. <a href="doi:%5B10.1890/14-0661.1" class="uri">doi:[10.1890/14-0661.1</a>.](<a href="https://doi.org/10.1890/14-0661.1" class="uri">https://doi.org/10.1890/14-0661.1</a>)</p>
+</div>
