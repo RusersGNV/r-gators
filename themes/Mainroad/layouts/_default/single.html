@@ -5,7 +5,7 @@
 		<header class="post__header clearfix">
 			<h1 class="post__title">{{ .Title }}</h1>
 			{{ with .Params.author }}
-<p class="author">{{ . }}</p>
+<p class="author">By: {{ . }}</p>
 {{ end }}
 			{{- if or (not .Date.IsZero) .Params.categories }}
 			<p class="post__meta meta">
