@@ -140,7 +140,84 @@ abline(h=1:10,col=&#39;grey&#39;,lty=3)</code></pre>
 step1 &lt;- stepAIC(k, direction=&quot;both&quot;)
 k2=predict(step1,newdata=dat.pred)</code></pre>
 <p><span style="color:red">The main questions we are trying to answer using a 10-fold cross-validation are: a) Does model selection based on AIC yield better results than simply using all covariates? 2) Does model selection using AIC always identify the true covariates? </span></p>
-<p>If you want to read more about model selection with a particular focus on Bayesian models, you can find more information in Hooten and Hobbs 2015 (see below).</p>
+<p>If you want to read more about model selection with a particular focus on Bayesian models, you can find more information in <a href="#c1">Hooten and Hobbs (2015)</a>.</p>
+</div>
+<div id="does-model-selection-based-on-aic-work-1" class="section level2">
+<h2>4) Does model selection based on AIC work?</h2>
+<pre class="r"><code>#Iteratively fit and test 2 models:
+#1) a lm model with 10 covariates
+#2) the model chosen by our model selection procedure using AIC
+library(&#39;MASS&#39;)
+
+nmod=3
+nvalid=10
+MSE=matrix(NA,nvalid,nmod)
+colnames(MSE)=c(&#39;all covariates&#39;,&#39;AIC model&#39;,&#39;true covariates&#39;)
+rownames(MSE)=paste(&#39;fold&#39;,1:nvalid)
+
+ind=rep(1:nvalid,each=nrow(dat)/nvalid)
+covs=matrix(NA,nvalid,10)
+rownames(covs)=paste(&#39;fold&#39;,1:nvalid)
+
+nomes=c(&#39;y&#39;,paste(&#39;x&#39;,1:10,sep=&#39;&#39;))
+for (j in 1:nvalid){
+  #train the model on 9 chunks
+  ind.train=which(ind!=j)
+  dat.train=dat[ind.train,nomes]
+  k=lm(y~.,data=dat.train)
+    
+  #make predictions for the left-out chunk based on model with all covariates
+  ind.pred=which(ind==j)
+  dat.pred=dat[ind.pred,nomes]
+  k1=predict(k,newdata=dat.pred)
+  MSE[j,1]=mean((dat$y[ind.pred]-k1)^2)
+  
+  #make predictions based on model chosen by selection procedure with AIC
+  step1 &lt;- stepAIC(k, direction=&quot;both&quot;)
+  k2=predict(step1,newdata=dat.pred)
+  MSE[j,2]=mean((dat$y[ind.pred]-k2)^2)
+  nomes1=names(step1$coefficients)
+  covs[j,1:length(nomes1)]=nomes1
+  
+  #make predictions based on true covariates
+  dat.train=dat[ind.train,c(&#39;y&#39;,&#39;x1&#39;,&#39;x2&#39;)]
+  k=lm(y~.,data=dat.train)
+    
+  dat.pred=dat[ind.pred,c(&#39;y&#39;,&#39;x1&#39;,&#39;x2&#39;)]
+  k1=predict(k,newdata=dat.pred)
+  MSE[j,3]=mean((dat$y[ind.pred]-k1)^2)
+}
+MSE</code></pre>
+<pre><code>##         all covariates AIC model true covariates
+## fold 1       0.9725402 0.9711024       0.9716394
+## fold 2       1.0572075 1.0570918       1.0575842
+## fold 3       1.0439794 1.0417953       1.0395384
+## fold 4       0.9500829 0.9482211       0.9443858
+## fold 5       0.9190690 0.9211713       0.9211713
+## fold 6       1.0040972 1.0036214       1.0032119
+## fold 7       0.8925913 0.8931812       0.8936235
+## fold 8       0.9303535 0.9291282       0.9299901
+## fold 9       1.0148248 1.0131315       1.0120631
+## fold 10      1.0736037 1.0695728       1.0709803</code></pre>
+<p>Does model selection based on AIC yield better results than simply using all covariates? It often does, but not always.</p>
+<pre class="r"><code>MSE[,&#39;AIC model&#39;]&lt;MSE[,&#39;all covariates&#39;]</code></pre>
+<pre><code>##  fold 1  fold 2  fold 3  fold 4  fold 5  fold 6  fold 7  fold 8  fold 9 
+##    TRUE    TRUE    TRUE    TRUE   FALSE    TRUE   FALSE    TRUE    TRUE 
+## fold 10 
+##    TRUE</code></pre>
+<p>Does model selection using AIC always identify the true covariates? The results below suggest that often times it does not, suggesting that it is not foolproof.</p>
+<pre class="r"><code>covs</code></pre>
+<pre><code>##         [,1]          [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## fold 1  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA   
+## fold 2  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA   
+## fold 3  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x5&quot; &quot;x8&quot; NA   NA   NA   NA   NA   
+## fold 4  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x5&quot; &quot;x8&quot; NA   NA   NA   NA   NA   
+## fold 5  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; NA   NA   NA   NA   NA   NA   NA   
+## fold 6  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x5&quot; &quot;x8&quot; NA   NA   NA   NA   NA   
+## fold 7  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA   
+## fold 8  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA   
+## fold 9  &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA   
+## fold 10 &quot;(Intercept)&quot; &quot;x1&quot; &quot;x2&quot; &quot;x8&quot; NA   NA   NA   NA   NA   NA</code></pre>
 <p><br></br> <br></br></p>
 <div id="comments" class="section level3">
 <h3>Comments?</h3>
@@ -149,5 +226,5 @@ k2=predict(step1,newdata=dat.pred)</code></pre>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
-<p>Hooten, M. B., and N. T. Hobbs. 2015. “A Guide to Bayesian Model Selection for Ecologists.” Ecological Monographs 85. <a href="doi:10.1890/14-0661.1" class="uri">doi:10.1890/14-0661.1</a>.</p>
+<p>Hooten, M. B., and N. T. Hobbs. 2015. “A Guide to Bayesian Model Selection for Ecologists.” Ecological Monographs 85. <a href="doi:10.1890/14-0661.1" class="uri">doi:10.1890/14-0661.1</a>. (#c1)</p>
 </div>
