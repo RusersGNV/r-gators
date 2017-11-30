@@ -242,7 +242,7 @@ Does model selection using AIC always identify the true covariates? The results 
 covs
 ```
 
-If you want to read more about model selection with a particular focus on Bayesian models, you can find more information in [Hooten and Hobbs (2015)](#c1).
+If you want to read more about model selection with a particular focus on Bayesian models, you can find more information in [Hooten and Hobbs (2015)](http://onlinelibrary.wiley.com/doi/10.1890/14-0661.1/abstract).
 
 <br></br>
 <br></br>
@@ -253,4 +253,4 @@ Send me an email at ![](\img\valle_email.png)
 
 #References 
 
-Hooten, M. B., and N. T. Hobbs. 2015. “A Guide to Bayesian Model Selection for Ecologists.” Ecological Monographs 85. doi:10.1890/14-0661.1. {#c1}
+Hooten, M. B., and N. T. Hobbs. 2015. “A Guide to Bayesian Model Selection for Ecologists.” Ecological Monographs 85. doi:10.1890/14-0661.1.
