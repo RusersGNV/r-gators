@@ -19,3 +19,456 @@ thumbnail: ''
 
 <p>Check out Dr. Zhao’s presentation: <a href="http://www.r-gators.com/slides/zhao" class="uri">http://www.r-gators.com/slides/zhao</a></p>
 <p>Download the RMarkdown file (used to make the presentation) and an R script for generating data to test these scripts at the GitHub repository: <a href="https://github.com/ufrmeetup/zhao" class="uri">https://github.com/ufrmeetup/zhao</a></p>
+<div id="what-are-species-distribution-models-sdms" class="section level2">
+<h2>What are species distribution models (SDMs)?</h2>
+<p>“Species distribution models (SDMs) are numerical tools that combine observations of species <span style="color:red">occurrence or abundance</span> with <span style="color:red">environmental estimates</span>. They are used to <span style="color:blue">gain ecological and evolutionary insights</span> and to <span style="color:blue">predict distributions</span> across landscapes, sometimes requiring extrapolation in space and time.” – Elith &amp; Leathwick 2009</p>
+<p>Elith, J. and Leathwick, J.R., 2009. Species distribution models: ecological explanation and prediction across space and time. Annual review of ecology, evolution, and systematics, 40, pp.677-697.</p>
+</div>
+<div id="types-of-sdms" class="section level2">
+<h2>Types of SDMs</h2>
+<ul>
+<li>Type of statistical models
+<ul>
+<li>Frequentist</li>
+<li>Bayesian</li>
+<li>Machine learning</li>
+</ul></li>
+</ul>
+</div>
+<div id="types-of-sdms-contd" class="section level2">
+<h2>Types of SDMs, cont’d</h2>
+<ul>
+<li>Type of response variables
+<ul>
+<li>Presence/absence (occurrence)</li>
+<li>Count (abundance)</li>
+</ul></li>
+<li>Number of response variables
+<ul>
+<li>One
+<ul>
+<li>single species</li>
+<li>Uni-directional interspecific interactions (B -&gt; A)</li>
+</ul></li>
+<li>Two or more: multiple species
+<ul>
+<li>Interspecific similarity</li>
+<li>Undirectional interspecific interactions (A - B)</li>
+<li>Bi-directional interspecific interactions (A -&gt; B &amp; B -&gt; A)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="types-of-sdms-contd-1" class="section level2">
+<h2>Types of SDMs, cont’d</h2>
+<ul>
+<li>Temporal processes represented
+<ul>
+<li>No: static</li>
+<li>Yes: dynamic</li>
+</ul></li>
+<li>Spatial processes represented
+<ul>
+<li>No</li>
+<li>Implicitly (spatial autocorrelation)</li>
+<li>Explicitly (dynamic)</li>
+</ul></li>
+</ul>
+</div>
+<div id="basic-frequetist-sdms-that-no-one-uses" class="section level2">
+<h2>Basic frequetist SDMs (that no one uses)</h2>
+<ul>
+<li><p>Occurrence: logistic regression <span class="math display">\[y \sim Bernoulli(\pi)\]</span> <span class="math display">\[logit(\pi) = X\beta\]</span></p></li>
+<li><p>Abundance: Poisson regression <span class="math display">\[N \sim Poisson(\lambda)\]</span> <span class="math display">\[log(\lambda)=X\beta\]</span></p></li>
+</ul>
+</div>
+<div id="two-directions-of-extension" class="section level2">
+<h2>Two directions of extension</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Machine learning (non-parametric)</th>
+<th align="left">Bayesian (parametric)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Non-linear relationship</td>
+<td align="left"><span style="color:blue">Easy</span> to detect</td>
+<td align="left"><span style="color:red">Hard</span> to detect</td>
+</tr>
+<tr class="even">
+<td align="left">Observation error</td>
+<td align="left"><span style="color:red">Hard</span> to account</td>
+<td align="left"><span style="color:blue">Easy</span> to account</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="todays-focus" class="section level2">
+<h2>Today’s focus</h2>
+<ul>
+<li>Occurrence</li>
+<li>Single species</li>
+<li>Static, non-spatial</li>
+</ul>
+</div>
+<div id="two-issues-to-consider" class="section level2">
+<h2>Two issues to consider</h2>
+<ul>
+<li>Non-linear relationships</li>
+<li>Observation error</li>
+</ul>
+</div>
+<div id="two-approaches-for-one-goal" class="section level2">
+<h2>Two approaches for one goal</h2>
+<ul>
+<li>Multivariate adaptive regression spline (MARS)
+<ul>
+<li>Detect non-linear relationship</li>
+</ul></li>
+<li>Occupancy model
+<ul>
+<li>Account for detection error</li>
+</ul></li>
+</ul>
+</div>
+<div id="what-is-mars" class="section level2">
+<h2>What is MARS</h2>
+<ul>
+<li>Developed by Friedman (Friedman, J.H., 1991. Multivariate adaptive regression splines. The annals of statistics, pp.1-67.)</li>
+<li>Connect a bunch of straight segment to represent non-linear relationships</li>
+</ul>
+</div>
+<div id="what-are-occupancy-models" class="section level2">
+<h2>What are occupancy models</h2>
+<ul>
+<li>Developed by MacKenzie and colleagues (MacKenzie, D.I., Nichols, J.D., Lachman, G.B., Droege, S., Andrew Royle, J. and Langtimm, C.A., 2002. Estimating site occupancy rates when detection probabilities are less than one. Ecology, 83(8), pp.2248-2255.)</li>
+<li>It is a hierarchical Bayesian model that includes an observation sub-model and a process sub-model</li>
+</ul>
+<p>Observation:<br />
+<span class="math display">\[y_{i,j} \sim Binomial(z_{i} \times p, J_{i})\]</span> Process: <span class="math display">\[z_{i} \sim Bernoulli(\pi_{i})\]</span> <span class="math display">\[logit(\pi_{i}) = x^T \beta\]</span></p>
+</div>
+<div id="case-study" class="section level2">
+<h2>Case study</h2>
+<ul>
+<li>Lion beetle in Alberta, Canada</li>
+<li>Relate lion beetle occurrence with temperature and forest cover</li>
+<li>Predict lion beetle distribution</li>
+</ul>
+</div>
+<div id="study-area-and-survey-sites" class="section level2">
+<h2>Study area and survey sites</h2>
+</div>
+<div id="look-at-the-data" class="section level2">
+<h2>Look at the data</h2>
+<pre class="r"><code># Slide found here http://www.r-gators.com/slides/zhao#15 
+load(&#39;c:/A. UFL/rmeetup/rmeetup data.RData&#39;)
+head(data, n=3)</code></pre>
+</div>
+<div id="things-can-get-complicated-quickly" class="section level2">
+<h2>Things can get complicated quickly</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Distribution-environment relationship</th>
+<th align="left">Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Linear, additive</td>
+<td align="left">Temperature</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Forest</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Temperature + Forest</td>
+</tr>
+<tr class="even">
+<td align="left">Non-linear, additive</td>
+<td align="left">Temperature ^ 2</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Forest ^ 2</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Temperature ^ 2 + Forest</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Temperature + Forest ^ 2</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Temperature ^ 2 + Forest ^ 2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="and-more" class="section level2">
+<h2>And more</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Distribution-environment relationship</th>
+<th align="left">Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Interaction</td>
+<td align="left">Temperature * Forest</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Temperature ^ 2) * Forest</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Temperature * (Forest ^ 2)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Temperature ^ 2) * (Forest ^ 2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="use-mars-to-make-things-easier" class="section level2">
+<h2>Use MARS to make things easier</h2>
+<pre class="r"><code>library(earth) # This is the library for MARS</code></pre>
+<pre class="r"><code># Slide found here http://www.r-gators.com/slides/zhao#18 
+# Create &quot;occupancy&quot; data for MARS
+data$y01 &lt;- ifelse(rowSums(data[,1:4])==0, 0, 1)
+head(data, n=3)</code></pre>
+</div>
+<div id="use-mars-to-analyze-the-data" class="section level2">
+<h2>Use MARS to analyze the data</h2>
+<p>Slide for these chunks found here <a href="http://www.r-gators.com/slides/zhao#19" class="uri">http://www.r-gators.com/slides/zhao#19</a></p>
+<pre class="r"><code># Model one, only additive relationships are considered
+fit1 &lt;- earth(y01 ~ temperature + forest, data=data, 
+              glm=list(family=&#39;binomial&#39;), # for occurrence data
+              degree=1, # for additive model
+              pmethod=&#39;backward&#39;, nfold=20, keepxy=TRUE) # for k-fold cross validation</code></pre>
+<pre class="r"><code># Model two, consider interactions between covariates
+fit2 &lt;- earth(y01 ~ temperature + forest, data=data, 
+              glm=list(family=&#39;binomial&#39;),
+              degree=2, # include level-one interactions
+              pmethod=&#39;backward&#39;, nfold=20, keepxy=TRUE)</code></pre>
+</div>
+<div id="model-comparison" class="section level2">
+<h2>Model comparison</h2>
+<p>Look at the AUC values of cross-validation - slide found here <a href="http://www.r-gators.com/slides/zhao#20" class="uri">http://www.r-gators.com/slides/zhao#20</a></p>
+<pre class="r"><code>auc &lt;- cbind(fit1$cv.auc.tab[1:nfold,1], fit2$cv.auc.tab[1:nfold,1], 
+boxplot(auc, axes=F, ylim=c(0,1), xlab=&#39;Model&#39;, ylab=&#39;AUC&#39;)
+axis(side=1, at=1:2, labels=c(&#39;Temp + Forest&#39;,&#39;Temp x Forest&#39;))
+axis(side=2, at=seq(0,1,.5))
+box()</code></pre>
+</div>
+<div id="the-importance-of-covariates" class="section level2">
+<h2>The importance of covariates</h2>
+<pre class="r"><code># Look at slideshow http://www.r-gators.com/slides/zhao#21
+evimp(fit2)</code></pre>
+</div>
+<div id="look-at-the-response-curves" class="section level2">
+<h2>Look at the response curves</h2>
+<pre class="r"><code># Slide found here http://www.r-gators.com/slides/zhao#22
+npred &lt;- 100
+forest.highlow &lt;- c(0, 1)
+ypred &lt;- matrix(0, npred, 2)
+for (i in 1:2) {
+  xpred &lt;- cbind(seq(-3, 3, length.out=npred), 
+                 rep(forest.highlow[i], npred))
+  ypred[,i] &lt;- inv.logit(predict(object=fit2, newdata=xpred))
+}
+xseq &lt;- seq(-3, 3, length.out=npred)
+par(mfrow=c(1,1))
+par(mar=c(5,5,1,1))
+plot(ypred[,1] ~ xseq, type=&#39;n&#39;, ylim=c(0,1), 
+     xlab=&#39;Temperature&#39;, ylab=&#39;Prob. of Occu.&#39;)
+for (i in 1:2) {lines(ypred[,i] ~ xseq, col=2^i)}
+legend(&#39;topright&#39;, bty=&#39;n&#39;, lty=1, col=2^c(1:2), 
+       legend=c(&#39;low&#39;,&#39;high&#39;), title=&#39;Forest&#39;)</code></pre>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
+<pre class="r"><code># Look at presentation for figure http://www.r-gators.com/slides/zhao#23 
+
+load(&#39;c:/A. UFL/rmeetup/ypred.RData&#39;)
+npred &lt;- 100
+xseq &lt;- seq(-3, 3, length.out=npred)
+par(mfrow=c(1,1))
+par(mar=c(4,4,1,1))
+plot(ypred[,1] ~ xseq, type=&#39;n&#39;, ylim=c(0,1), 
+     xlab=&#39;Temperature&#39;, ylab=&#39;Prob. of Occu.&#39;)
+for (i in 1:2) {lines(ypred[,i] ~ xseq, col=2^i)}
+legend(&#39;topright&#39;, bty=&#39;n&#39;, lty=1, col=2^c(1:2), 
+       legend=c(&#39;low&#39;,&#39;high&#39;), title=&#39;Forest&#39;)</code></pre>
+</div>
+<div id="what-we-learned-from-mars" class="section level2">
+<h2>What we learned from MARS</h2>
+<ul>
+<li>An interaction between temperature and forest is needed</li>
+<li>A quandratic form of temperature is needed</li>
+</ul>
+</div>
+<div id="issues-yet-to-solve" class="section level2">
+<h2>Issues yet to solve</h2>
+<ul>
+<li>Observation error</li>
+</ul>
+</div>
+<div id="conduct-occupancy-modeling" class="section level2">
+<h2>Conduct occupancy modeling</h2>
+<pre class="r"><code>library(unmarked) # This is the library for occupancy models</code></pre>
+<pre class="r"><code># Prepare data for &quot;unmarked&quot;
+unmarked.data &lt;- unmarkedFrameOccu(y=data[,1:4], 
+                                siteCovs=data[,c(&#39;temperature&#39;,&#39;forest&#39;)], 
+                                obsCovs=NULL)</code></pre>
+</div>
+<div id="run-unmarked-to-fit-the-mackenzie-et-al.-2002-occupancy-model" class="section level2">
+<h2>Run “unmarked” to fit the MacKenzie et al. (2002) Occupancy Model</h2>
+<pre class="r"><code>fit &lt;- occu(~1 ~temperature*forest + I(temperature^2)*forest, 
+            data=unmarked.data, knownOcc=which(rowSums(y)==1))</code></pre>
+</div>
+<div id="look-at-the-parameter-estimates" class="section level2">
+<h2>Look at the parameter estimates</h2>
+<pre class="r"><code># slide found here http://www.r-gators.com/slides/zhao#28
+summary(fit)</code></pre>
+</div>
+<div id="overall-detection-probability" class="section level2">
+<h2>Overall detection probability</h2>
+<pre class="r"><code># slide found here http://www.r-gators.com/slides/zhao#29
+library(boot)
+pobs &lt;- inv.logit(0.007790955)
+pobs.grand &lt;- 1 - (1 - pobs) ^ 4
+pobs
+pobs.grand</code></pre>
+</div>
+<div id="check-the-response-curve" class="section level2">
+<h2>Check the response curve</h2>
+<pre class="r"><code>rm(list=ls())
+library(boot)
+load(&#39;c:/A. UFL/rmeetup/est.RData&#39;)
+n &lt;- 100
+xseq &lt;- seq(-3, 3, length.out=n)
+pi0 &lt;- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2)
+pi1 &lt;- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2 + 
+                est[3,1] + est[5,1] * xseq + est[6,1] * xseq ^ 2)
+par(mfrow=c(1,1))
+par(mar=c(5,5,1,1))
+plot(pi0 ~ xseq, type=&#39;l&#39;, ylim=c(0,1), col=2, 
+     xlab=&#39;Temperature&#39;, ylab=&#39;Prob. of Occu.&#39;)
+lines(pi1 ~ xseq, col=4)
+legend(&#39;topleft&#39;, bty=&#39;n&#39;, lty=1, col=2^c(1:2), 
+       legend=c(&#39;low&#39;,&#39;high&#39;), title=&#39;Forest&#39;)</code></pre>
+</div>
+<div id="section-1" class="section level2">
+<h2></h2>
+</div>
+<div id="predict-the-distribution-of-lion-beetles" class="section level2">
+<h2>Predict the distribution of lion beetles</h2>
+<pre class="r"><code>library(boot)
+
+load(&#39;c:/A. UFL/rmeetup/est.RData&#39;)
+load(&#39;c:/A. UFL/2. Alberta/data/original/EnvData.km2.RData&#39;)
+pi &lt;- inv.logit(est[1,1] + est[2,1] * cov$MAT + est[4,1] * cov$MAT ^ 2 + 
+              est[3,1] * cov$forest + est[5,1] * cov$MAT * cov$forest + 
+              est[6,1] * cov$MAT ^ 2 * cov$forest)
+pi.scale &lt;- round((pi - min(pi)) / (max(pi) - min(pi)) * 9) + 1
+
+par(mfrow=c(1,1))
+par(mar=c(0,0,1,0))
+par(oma=c(1,1,1,1))
+
+plot(cov$lat ~ cov$lon, pch=19, cex=.01, axes=F, 
+     xlab=&#39;&#39;, ylab=&#39;&#39;, 
+     col=rev(heat.colors(10))[pi.scale])</code></pre>
+</div>
+<div id="section-2" class="section level2">
+<h2></h2>
+</div>
+<div id="what-did-occupancy-do-for-us" class="section level2">
+<h2>What did occupancy do for us?</h2>
+<ul>
+<li>Estimate detection probability</li>
+<li>Explain beetle-environment relationships</li>
+<li>Predict beetle distribution</li>
+</ul>
+</div>
+<div id="further-reading" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Stacked Species Distribution Modelling
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/SSDM/SSDM.pdf" class="uri">https://cran.r-project.org/web/packages/SSDM/SSDM.pdf</a><br />
+</li>
+<li>You can use this package to ensemble a number of machine learning approaches such as Generalized additive model (GAM), Multivariate adaptive regression splines (MARS), Generalized boosted regressions model (GBM), Classification tree analysis (CTA), Random forest (RF), Maximum entropy (MAXENT), Artificial neural network (ANN), and Support vector machines (SVM)</li>
+</ul></li>
+</ul>
+</div>
+<div id="further-reading-1" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Multi-species modeling
+<ul>
+<li>Interspecific similarity &amp; undirectional interspecific interactions
+<ul>
+<li>Ovaskainen, O., Tikhonov, G., Norberg, A., Guillaume Blanchet, F., Duan, L., Dunson, D., Roslin, T. and Abrego, N., 2017. How to make more out of community data? A conceptual framework and its implementation as models and software. Ecology Letters, 20(5), pp.561-576.</li>
+</ul></li>
+<li>Uni-directional interspecific interactions
+<ul>
+<li>Waddle, J.H., Dorazio, R.M., Walls, S.C., Rice, K.G., Beauchamp, J., Schuman, M.J. and Mazzotti, F.J., 2010. A new parameterization for estimating co-occurrence of interacting species. Ecological Applications, 20(5), pp.1467-1475.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="further-reading-2" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Spatial autocorrelation
+<ul>
+<li>Reviews
+<ul>
+<li>Dormann et al., 2007. Methods to account for spatial autocorrelation in the analysis of species distributional data: a review. Ecography, 30(5), pp.609-628.</li>
+<li>Beale et al., 2010. Regression analysis of spatial data. Ecology letters, 13(2), pp.246-264.</li>
+</ul></li>
+<li>Recent advances
+<ul>
+<li>Crase, B., Liedloff, A.C. and Wintle, B.A., 2012. A new method for dealing with residual spatial autocorrelation in species distribution models. Ecography, 35(10), pp.879-888.</li>
+<li>Hodges, J.S. and Reich, B.J., 2010. Adding spatially-correlated errors can mess up the fixed effect you love. The American Statistician, 64(4), pp.325-334.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="further-reading-3" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Dynamic models
+<ul>
+<li>MacKenzie, D.I., Nichols, J.D., Hines, J.E., Knutson, M.G. and Franklin, A.B., 2003. Estimating site occupancy, colonization, and local extinction when a species is detected imperfectly. Ecology, 84(8), pp.2200-2207.</li>
+<li>Dail, D. and Madsen, L., 2011. Models for estimating abundance from repeated counts of an open metapopulation. Biometrics, 67(2), pp.577-587.</li>
+</ul></li>
+</ul>
+</div>
+<div id="further-reading-4" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Spatially explicit dynamic models
+<ul>
+<li>Bled, F., Royle, J.A. and Cam, E., 2011. Hierarchical modeling of an invasive spread: the Eurasian Collared-Dove Streptopelia decaocto in the United States. Ecological Applications, 21(1), pp.290-302.</li>
+<li>Hefley, T.J., Hooten, M.B., Russell, R.E., Walsh, D.P. and Powell, J.A., 2017. When mechanism matters: Bayesian forecasting using models of ecological diffusion. Ecology Letters, 20(5), pp.640-650.</li>
+<li>Zhao, Q., Royle, J.A. and Boomer, G.S., 2017. Spatially explicit dynamic N-mixture models. Population Ecology, 59(4), pp.293-300.</li>
+</ul></li>
+</ul>
+</div>
+<div id="thank-you" class="section level2">
+<h2>Thank you</h2>
+</div>

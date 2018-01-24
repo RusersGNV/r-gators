@@ -15,6 +15,427 @@ description: ''
 thumbnail: ''
 ---
 
-Check out Dr. Zhao's presentation: http://www.r-gators.com/slides/zhao
+Check out Dr. Zhao's presentation: http://www.r-gators.com/slides/zhao. This presentation was made using RMarkdown. The Markdown code is included below, however outputs from R (i.e. graphs) will only be displayed in the presentation. 
 
-Download the RMarkdown file (used to make the presentation) and an R script for generating data to test these scripts at the GitHub repository: https://github.com/ufrmeetup/zhao
+Download the RMarkdown file and an R script for generating data to test these scripts at the GitHub repository: https://github.com/ufrmeetup/zhao. Note the RMarkdown script relies on some private data, so it will not run on it's own, but can be run using the simulated data. 
+
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+## What are species distribution models (SDMs)?
+"Species distribution models (SDMs) are numerical tools that combine observations of species <span style="color:red">occurrence or abundance</span> with <span style="color:red">environmental estimates</span>. They are used to <span style="color:blue">gain ecological and evolutionary insights</span> and to <span style="color:blue">predict distributions</span> across landscapes, sometimes requiring extrapolation in space and time." -- Elith &  Leathwick 2009
+
+Elith, J. and Leathwick, J.R., 2009. Species distribution models: ecological explanation and prediction across space and time. Annual review of ecology, evolution, and systematics, 40, pp.677-697.
+
+## Types of SDMs
+- Type of statistical models
+    - Frequentist
+    - Bayesian
+    - Machine learning
+
+## Types of SDMs, cont'd
+- Type of response variables
+    - Presence/absence (occurrence)
+    - Count (abundance)
+
+- Number of response variables
+    - One
+        * single species
+        * Uni-directional interspecific interactions (B -> A)
+    - Two or more: multiple species
+        * Interspecific similarity
+        * Undirectional interspecific interactions (A - B)
+        * Bi-directional interspecific interactions (A -> B & B -> A)
+
+## Types of SDMs, cont'd
+- Temporal processes represented
+    - No: static
+    - Yes: dynamic
+
+- Spatial processes represented
+    - No
+    - Implicitly (spatial autocorrelation)
+    - Explicitly (dynamic)
+
+## Basic frequetist SDMs (that no one uses)
+- Occurrence: logistic regression
+$$y \sim Bernoulli(\pi)$$
+$$logit(\pi) = X\beta$$
+
+- Abundance: Poisson regression
+$$N \sim Poisson(\lambda)$$
+$$log(\lambda)=X\beta$$
+
+## Two directions of extension
+|                      |Machine learning (non-parametric)                  |Bayesian (parametric)                   |
+|:---------------------|:--------------------------------------------------|:---------------------------------------|
+|Non-linear relationship|<span style="color:blue">Easy</span> to detect    | <span style="color:red">Hard</span> to detect|
+|Observation error      |<span style="color:red">Hard</span> to account    | <span style="color:blue">Easy</span> to account|
+
+## Today's focus
+- Occurrence
+- Single species
+- Static, non-spatial
+
+## Two issues to consider    
+- Non-linear relationships
+- Observation error
+
+## Two approaches for one goal
+- Multivariate adaptive regression spline (MARS)
+    - Detect non-linear relationship
+- Occupancy model
+    - Account for detection error
+
+## What is MARS
+- Developed by Friedman (Friedman, J.H., 1991. Multivariate adaptive regression splines. The annals of statistics, pp.1-67.)
+- Connect a bunch of straight segment to represent non-linear relationships
+
+```{r, echo=FALSE, fig.align='center', fig.width=9, fit.height=3}
+# Plots displayed here http://www.r-gators.com/slides/zhao#11 
+n <- 100
+w1 <- seq(1, 4, length.out=100)
+w2 <- seq(4, 6, length.out=100)
+w3 <- seq(6, 10, length.out=100)
+z1 <- w1 * .5
+z2 <- 1 + w2 * .25
+z3 <- 4 - w3 * .25
+
+x1 <- runif(40, 1, 4)
+x2 <- runif(20, 4, 6)
+x3 <- runif(40, 6,10)
+y1 <- x1 * .5 + rnorm(40, 0, .3)
+y2 <- 1 + x2 * .25 + rnorm(20, 0, .3)
+y3 <- 4 - x3 * .25 + rnorm(40, 0, .3)
+
+w <- c(w1, w2, w3)
+z <- c(z1, z2, z3)
+x <- c(x1, x2, x3)
+y <- c(y1, y2, y3)
+
+par(mfrow=c(1,3))
+par(mar=c(6,4,1,2))
+plot(y ~ x)
+plot(y ~ x)
+abline(lm(y ~ x), col=2)
+plot(y ~ x)
+lines(z ~ w, col=2)
+abline(v=c(4,6), col=4, lty=3)
+```
+
+## What are occupancy models
+- Developed by MacKenzie and colleagues (MacKenzie, D.I., Nichols, J.D., Lachman, G.B., Droege, S., Andrew Royle, J. and Langtimm, C.A., 2002. Estimating site occupancy rates when detection probabilities are less than one. Ecology, 83(8), pp.2248-2255.)
+- It is a hierarchical Bayesian model that includes an observation sub-model and a process sub-model
+
+Observation:    
+$$y_{i,j} \sim Binomial(z_{i} \times p, J_{i})$$
+Process:
+$$z_{i} \sim Bernoulli(\pi_{i})$$
+$$logit(\pi_{i}) = x^T \beta$$
+
+## Case study
+- Lion beetle in Alberta, Canada
+- Relate lion beetle occurrence with temperature and forest cover
+- Predict lion beetle distribution
+
+## Study area and survey sites
+```{r, echo=FALSE, eval=FALSE, fig.align='center', fig.width=8, fit.height=6}
+# Slide shown here http://www.r-gators.com/slides/zhao#14 
+load('c:/A. UFL/rmeetup/cov info.RData')
+data <- read.csv('c:/A. UFL/2. Alberta/data/mite.csv')
+data <- data[which(data$lat > 52.80),]
+
+par(mfrow=c(1,2))
+par(mar=c(0,0,1,0))
+par(oma=c(1,1,1,1))
+
+for (i in 1:2) {
+  plot(info$lat ~ info$lon, pch=19, cex=.01, axes=F, 
+       xlab='', ylab='', 
+       col=rev(heat.colors(10))[info[,i]])
+  points(data$lat ~ data$lon, col='grey36', pch=19, cex=.5)
+  title(main=c('Temperatur','Forest')[i], line=0, cex=1.2)
+}
+```
+
+## Look at the data
+```{r eval=FALSE}
+# Slide found here http://www.r-gators.com/slides/zhao#15 
+load('c:/A. UFL/rmeetup/rmeetup data.RData')
+head(data, n=3)
+```
+
+## Things can get complicated quickly
+Distribution-environment relationship  Model
+-------------------------------------- ------------------------------
+Linear, additive                       Temperature
+                                       Forest
+                                       Temperature + Forest
+Non-linear, additive                   Temperature ^ 2
+                                       Forest ^ 2
+                                       Temperature ^ 2 + Forest
+                                       Temperature + Forest ^ 2
+                                       Temperature ^ 2 + Forest ^ 2
+
+## And more
+Distribution-environment relationship  Model
+-------------------------------------- ------------------------------
+Interaction                            Temperature * Forest
+                                       (Temperature ^ 2) * Forest
+                                       Temperature * (Forest ^ 2)
+                                       (Temperature ^ 2) * (Forest ^ 2)
+
+## Use MARS to make things easier
+```{r, eval=F}
+library(earth) # This is the library for MARS
+```
+```{r, eval = FALSE}
+# Slide found here http://www.r-gators.com/slides/zhao#18 
+# Create "occupancy" data for MARS
+data$y01 <- ifelse(rowSums(data[,1:4])==0, 0, 1)
+head(data, n=3)
+```
+
+## Use MARS to analyze the data
+Slide for these chunks found here http://www.r-gators.com/slides/zhao#19 
+```{r, eval=F}
+# Model one, only additive relationships are considered
+fit1 <- earth(y01 ~ temperature + forest, data=data, 
+              glm=list(family='binomial'), # for occurrence data
+              degree=1, # for additive model
+              pmethod='backward', nfold=20, keepxy=TRUE) # for k-fold cross validation
+```
+```{r, eval=F}
+# Model two, consider interactions between covariates
+fit2 <- earth(y01 ~ temperature + forest, data=data, 
+              glm=list(family='binomial'),
+              degree=2, # include level-one interactions
+              pmethod='backward', nfold=20, keepxy=TRUE)
+```
+
+## Model comparison
+Look at the AUC values of cross-validation - slide found here http://www.r-gators.com/slides/zhao#20
+```{r, eval=F}
+auc <- cbind(fit1$cv.auc.tab[1:nfold,1], fit2$cv.auc.tab[1:nfold,1], 
+boxplot(auc, axes=F, ylim=c(0,1), xlab='Model', ylab='AUC')
+axis(side=1, at=1:2, labels=c('Temp + Forest','Temp x Forest'))
+axis(side=2, at=seq(0,1,.5))
+box()
+```
+```{r, echo=FALSE, fig.align='center', fig.width=4, fit.height=4}
+load(file='c:/A. UFL/rmeetup/auc.RData')
+par(mar=c(11,4,.5,1))
+boxplot(auc, axes=F, ylim=c(0,1), xlab='Model', ylab='AUC')
+axis(side=1, at=1:2, labels=c('Temp + Forest','Temp x Forest'))
+axis(side=2, at=seq(0,1,.5))
+box()
+```
+
+## The importance of covariates
+```{r, eval=FALSE}
+# Look at slideshow http://www.r-gators.com/slides/zhao#21
+evimp(fit2)
+```
+
+
+```{r, echo=F, eval=FALSE}
+load('c:/A. UFL/rmeetup/fit2.RData')
+print(tt)
+```
+
+## Look at the response curves
+```{r, eval=FALSE}
+# Slide found here http://www.r-gators.com/slides/zhao#22
+npred <- 100
+forest.highlow <- c(0, 1)
+ypred <- matrix(0, npred, 2)
+for (i in 1:2) {
+  xpred <- cbind(seq(-3, 3, length.out=npred), 
+                 rep(forest.highlow[i], npred))
+  ypred[,i] <- inv.logit(predict(object=fit2, newdata=xpred))
+}
+xseq <- seq(-3, 3, length.out=npred)
+par(mfrow=c(1,1))
+par(mar=c(5,5,1,1))
+plot(ypred[,1] ~ xseq, type='n', ylim=c(0,1), 
+     xlab='Temperature', ylab='Prob. of Occu.')
+for (i in 1:2) {lines(ypred[,i] ~ xseq, col=2^i)}
+legend('topright', bty='n', lty=1, col=2^c(1:2), 
+       legend=c('low','high'), title='Forest')
+```
+
+##
+```{r, eval=FALSE, fig.align='center', fig.width=5, fit.height=6}
+# Look at presentation for figure http://www.r-gators.com/slides/zhao#23 
+
+load('c:/A. UFL/rmeetup/ypred.RData')
+npred <- 100
+xseq <- seq(-3, 3, length.out=npred)
+par(mfrow=c(1,1))
+par(mar=c(4,4,1,1))
+plot(ypred[,1] ~ xseq, type='n', ylim=c(0,1), 
+     xlab='Temperature', ylab='Prob. of Occu.')
+for (i in 1:2) {lines(ypred[,i] ~ xseq, col=2^i)}
+legend('topright', bty='n', lty=1, col=2^c(1:2), 
+       legend=c('low','high'), title='Forest')
+```
+
+## What we learned from MARS
+- An interaction between temperature and forest is needed
+- A quandratic form of temperature is needed
+
+## Issues yet to solve
+- Observation error
+
+## Conduct occupancy modeling
+```{r, eval=F}
+library(unmarked) # This is the library for occupancy models
+```
+```{r, eval=F}
+# Prepare data for "unmarked"
+unmarked.data <- unmarkedFrameOccu(y=data[,1:4], 
+                                siteCovs=data[,c('temperature','forest')], 
+                                obsCovs=NULL)
+```
+
+## Run "unmarked" to fit the MacKenzie et al. (2002) Occupancy Model
+```{r, eval=F}
+fit <- occu(~1 ~temperature*forest + I(temperature^2)*forest, 
+            data=unmarked.data, knownOcc=which(rowSums(y)==1))
+```
+
+## Look at the parameter estimates
+```{r, eval=FALSE}
+# slide found here http://www.r-gators.com/slides/zhao#28
+summary(fit)
+```
+```{r, echo=FALSE}
+load('c:/A. UFL/rmeetup/unmarked fit.RData')
+print(tt)
+```
+
+## Overall detection probability
+```{r, eval=F}
+# slide found here http://www.r-gators.com/slides/zhao#29
+library(boot)
+pobs <- inv.logit(0.007790955)
+pobs.grand <- 1 - (1 - pobs) ^ 4
+pobs
+pobs.grand
+```
+
+## Check the response curve
+```{r, eval=F}
+rm(list=ls())
+library(boot)
+load('c:/A. UFL/rmeetup/est.RData')
+n <- 100
+xseq <- seq(-3, 3, length.out=n)
+pi0 <- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2)
+pi1 <- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2 + 
+                est[3,1] + est[5,1] * xseq + est[6,1] * xseq ^ 2)
+par(mfrow=c(1,1))
+par(mar=c(5,5,1,1))
+plot(pi0 ~ xseq, type='l', ylim=c(0,1), col=2, 
+     xlab='Temperature', ylab='Prob. of Occu.')
+lines(pi1 ~ xseq, col=4)
+legend('topleft', bty='n', lty=1, col=2^c(1:2), 
+       legend=c('low','high'), title='Forest')
+```
+
+##
+```{r, echo=F, fig.align='center', fig.width=5, fit.height=6}
+# slide found here http://www.r-gators.com/slides/zhao#31
+rm(list=ls())
+library(boot)
+load('c:/A. UFL/rmeetup/est.RData')
+n <- 100
+xseq <- seq(-3, 3, length.out=n)
+pi0 <- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2)
+pi1 <- inv.logit(est[1,1] + est[2,1] * xseq + est[4,1] * xseq ^ 2 + 
+                 est[3,1] + est[5,1] * xseq + est[6,1] * xseq ^ 2)
+par(mfrow=c(1,1))
+par(mar=c(5,5,1,1))
+plot(pi0 ~ xseq, type='l', ylim=c(0,1), col=2, 
+     xlab='Temperature', ylab='Prob. of Occu.')
+lines(pi1 ~ xseq, col=4)
+legend('topleft', bty='n', lty=1, col=2^c(1:2), 
+       legend=c('low','high'), title='Forest')
+```
+
+## Predict the distribution of lion beetles
+```{r, eval=FALSE}
+library(boot)
+
+load('c:/A. UFL/rmeetup/est.RData')
+load('c:/A. UFL/2. Alberta/data/original/EnvData.km2.RData')
+pi <- inv.logit(est[1,1] + est[2,1] * cov$MAT + est[4,1] * cov$MAT ^ 2 + 
+              est[3,1] * cov$forest + est[5,1] * cov$MAT * cov$forest + 
+              est[6,1] * cov$MAT ^ 2 * cov$forest)
+pi.scale <- round((pi - min(pi)) / (max(pi) - min(pi)) * 9) + 1
+
+par(mfrow=c(1,1))
+par(mar=c(0,0,1,0))
+par(oma=c(1,1,1,1))
+
+plot(cov$lat ~ cov$lon, pch=19, cex=.01, axes=F, 
+     xlab='', ylab='', 
+     col=rev(heat.colors(10))[pi.scale])
+```
+
+##
+```{r, echo=FALSE, eval=FALSE, fig.align='center', fig.width=5, fit.height=6}
+# slide found here http://www.r-gators.com/slides/zhao#33
+rm(list=ls())
+load('c:/A. UFL/rmeetup/unmarked map info.RData')
+data <- read.csv('c:/A. UFL/2. Alberta/data/mite.csv')
+data <- data[which(data$lat > 52.80),]
+
+par(mfrow=c(1,1))
+par(mar=c(0,0,0,0))
+
+plot(info$lat ~ info$lon, pch=19, cex=.01, axes=F, 
+     xlab='', ylab='', 
+     col=rev(heat.colors(10))[info[,1]])
+```
+
+## What did occupancy do for us?
+- Estimate detection probability
+- Explain beetle-environment relationships
+- Predict beetle distribution
+
+## Further reading
+- Stacked Species Distribution Modelling    
+    - https://cran.r-project.org/web/packages/SSDM/SSDM.pdf    
+    - You can use this package to ensemble a number of machine learning approaches such as Generalized additive model (GAM), Multivariate adaptive regression splines (MARS), Generalized boosted regressions model (GBM), Classification tree analysis (CTA), Random forest (RF), Maximum entropy (MAXENT), Artificial neural network (ANN), and Support vector machines (SVM)
+
+## Further reading
+- Multi-species modeling
+    - Interspecific similarity & undirectional interspecific interactions
+        - Ovaskainen, O., Tikhonov, G., Norberg, A., Guillaume Blanchet, F., Duan, L., Dunson, D., Roslin, T. and Abrego, N., 2017. How to make more out of community data? A conceptual framework and its implementation as models and software. Ecology Letters, 20(5), pp.561-576.
+    - Uni-directional interspecific interactions
+        - Waddle, J.H., Dorazio, R.M., Walls, S.C., Rice, K.G., Beauchamp, J., Schuman, M.J. and Mazzotti, F.J., 2010. A new parameterization for estimating co-occurrence of interacting species. Ecological Applications, 20(5), pp.1467-1475.
+
+## Further reading
+- Spatial autocorrelation
+    - Reviews
+        - Dormann et al., 2007. Methods to account for spatial autocorrelation in the analysis of species distributional data: a review. Ecography, 30(5), pp.609-628.
+        - Beale et al., 2010. Regression analysis of spatial data. Ecology letters, 13(2), pp.246-264.
+    - Recent advances
+        - Crase, B., Liedloff, A.C. and Wintle, B.A., 2012. A new method for dealing with residual spatial autocorrelation in species distribution models. Ecography, 35(10), pp.879-888.
+        - Hodges, J.S. and Reich, B.J., 2010. Adding spatially-correlated errors can mess up the fixed effect you love. The American Statistician, 64(4), pp.325-334.
+
+## Further reading
+- Dynamic models
+    - MacKenzie, D.I., Nichols, J.D., Hines, J.E., Knutson, M.G. and Franklin, A.B., 2003. Estimating site occupancy, colonization, and local extinction when a species is detected imperfectly. Ecology, 84(8), pp.2200-2207.
+    - Dail, D. and Madsen, L., 2011. Models for estimating abundance from repeated counts of an open metapopulation. Biometrics, 67(2), pp.577-587.
+
+## Further reading
+- Spatially explicit dynamic models
+    - Bled, F., Royle, J.A. and Cam, E., 2011. Hierarchical modeling of an invasive spread: the Eurasian Collared-Dove Streptopelia decaocto in the United States. Ecological Applications, 21(1), pp.290-302.
+    - Hefley, T.J., Hooten, M.B., Russell, R.E., Walsh, D.P. and Powell, J.A., 2017. When mechanism matters: Bayesian forecasting using models of ecological diffusion. Ecology Letters, 20(5), pp.640-650.
+    - Zhao, Q., Royle, J.A. and Boomer, G.S., 2017. Spatially explicit dynamic N-mixture models. Population Ecology, 59(4), pp.293-300.
+
+## Thank you

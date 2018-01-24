@@ -18,7 +18,8 @@
       
       <guid>/2018/01/24/introduction-to-species-distribution-models/</guid>
       <description>Check out Dr. Zhao’s presentation: http://www.r-gators.com/slides/zhao
-Download the RMarkdown file (used to make the presentation) and an R script for generating data to test these scripts at the GitHub repository: https://github.com/ufrmeetup/zhao</description>
+Download the RMarkdown file (used to make the presentation) and an R script for generating data to test these scripts at the GitHub repository: https://github.com/ufrmeetup/zhao
+What are species distribution models (SDMs)?“Species distribution models (SDMs) are numerical tools that combine observations of species occurrence or abundance with environmental estimates. They are used to gain ecological and evolutionary insights and to predict distributions across landscapes, sometimes requiring extrapolation in space and time.</description>
     </item>
     
     <item>
