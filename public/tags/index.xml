@@ -6,7 +6,7 @@
     <description>Recent content in Tags on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Base R</title>
       <link>/tags/base-r/</link>
-      <pubDate>Wed, 25 Oct 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/base-r/</guid>
       <description></description>
@@ -44,6 +44,15 @@
       <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/dplyr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ecology</title>
+      <link>/tags/ecology/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ecology/</guid>
       <description></description>
     </item>
     
@@ -104,7 +113,7 @@
     <item>
       <title>Modelling</title>
       <link>/tags/modelling/</link>
-      <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/modelling/</guid>
       <description></description>
@@ -140,7 +149,7 @@
     <item>
       <title>Spatial</title>
       <link>/tags/spatial/</link>
-      <pubDate>Wed, 15 Nov 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/spatial/</guid>
       <description></description>
@@ -149,7 +158,7 @@
     <item>
       <title>Statistics</title>
       <link>/tags/statistics/</link>
-      <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/statistics/</guid>
       <description></description>

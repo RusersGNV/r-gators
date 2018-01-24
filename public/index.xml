@@ -6,10 +6,20 @@
     <description>Recent content on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introduction to Species Distribution Models</title>
+      <link>/2018/01/24/introduction-to-species-distribution-models/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/24/introduction-to-species-distribution-models/</guid>
+      <description>Check out Dr. Zhao’s presentation: http://www.r-gators.com/slides/zhao
+Download the RMarkdown file (used to make the presentation) and an R script for generating data to test these scripts at the GitHub repository: https://github.com/ufrmeetup/zhao</description>
+    </item>
     
     <item>
       <title>Cross-validation</title>
