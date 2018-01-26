@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UF R List-Serv</title>
 <meta name="description" content=" Activity hub for R programming at the University of Florida">
-<meta name="generator" content="Hugo 0.20" />
+<meta name="generator" content="Hugo 0.34" />
 <meta property="og:title" content="UF R List-Serv" />
 <meta property="og:description" content="We have resurrected the UF R list-serv to provide a forum for asking questions in R. Please sign up for the list-serv here. If you want to manage how you recieve emails from the list, follow this link. Sign in and change setting under the subscriber&rsquo;s corner. We strive to make the list beginner-friendly, however please check out this posting guide before posting (well-formmated questions can be answered much quicker!)." />
 <meta property="og:type" content="article" />
@@ -85,20 +85,25 @@ ga('send', 'pageview');
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'r-gators';
-    var disqus_identifier = '\/listserv\/';
-    var disqus_title = 'UF R List-Serv';
-    var disqus_url = '\/listserv\/';
-
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "r-gators" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
 </div>
@@ -110,6 +115,7 @@ ga('send', 'pageview');
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/2018/01/31/wildlife-tracking-data-in-r/">Wildlife tracking data in R</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2018/01/24/introduction-to-species-distribution-models/">Introduction to Species Distribution Models</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/11/29/cross-validation/">Cross-validation</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/11/15/mapping-in-r-exercise/">Mapping in R exercise</a></li>
@@ -119,7 +125,6 @@ ga('send', 'pageview');
 			<li class="widget__item"><a class="widget__link" href="/2017/09/27/data-manipulation-in-the-tidyverse/">Data manipulation in the tidyverse</a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/09/06/introduction-to-dataframes-in-r/">Introduction to Dataframes in R </a></li>
 			<li class="widget__item"><a class="widget__link" href="/2017/08/30/introduction-to-r-and-rstudio/">Introduction to R and RStudio</a></li>
-			<li class="widget__item"><a class="widget__link" href="/2017/02/08/speeding-up-r-code-using-rcpp-and-foreach-packages/">Speeding up R code using Rcpp and foreach packages</a></li>
 		</ul>
 	</div>
 </div>

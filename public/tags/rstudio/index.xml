@@ -17,7 +17,7 @@
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/11/01/rmarkdown-and-bookdown/</guid>
-      <description>IntroductionThis is an introductory post into using Bookdown. Bookdown is a powerful package that allows you to create documents embedding images, tables, and code. One great reason to use Bookdown is that you can put results and images from your code directly into your text, which reduces the chances of copying errors. For this post, I’m going to focus on creating an HTML document, though you can also create outputs in Word and PDF formats.</description>
+      <description>Introduction This is an introductory post into using Bookdown. Bookdown is a powerful package that allows you to create documents embedding images, tables, and code. One great reason to use Bookdown is that you can put results and images from your code directly into your text, which reduces the chances of copying errors. For this post, I’m going to focus on creating an HTML document, though you can also create outputs in Word and PDF formats.</description>
     </item>
     
     <item>

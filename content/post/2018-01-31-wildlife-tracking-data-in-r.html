@@ -1,0 +1,427 @@
+---
+title: Wildlife tracking data in R
+author: Simona Picardi
+date: '2018-01-31'
+slug: wildlife-tracking-data-in-r
+categories:
+  - Meetup Presentation
+tags:
+  - ecology
+  - modelling
+  - plotting
+  - spatial
+  - statistics
+  - tidyverse
+description: ''
+thumbnail: ''
+---
+
+
+
+<p>Simona’s presentation can be found here: <a href="http://www.r-gators.com/pdf/wildlife-tracking-data.pdf" class="uri">http://www.r-gators.com/pdf/wildlife-tracking-data.pdf</a></p>
+<p>The RData file and RMarkdown file (used to make the rest of this post) can be downloaded at the GitHub repository here <a href="https://github.com/ufrmeetup/picardi" class="uri">https://github.com/ufrmeetup/picardi</a>. If you’re unfamiliar GitHub, you can download a zipped file by pressing the green “Clone or download” button on the right of that page. From there just unzip the folder and click on the .Rproj file (requires RStudio to be installed). Make sure you’re using an up-to-date version of R (3.4.3)</p>
+<div id="intro" class="section level1">
+<h1>Intro</h1>
+<p>This demo provides a general introduction to handling movement data in R using the package adehabitatLT, and illustrates an example of analytical application of First Passage Time for path segmentation purposes. The dataset consists of 6 year-long trajectories of GPS-tracked Wood Storks in Florida. Please do not use the data provided for any purpose other than this exercise.</p>
+</div>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>Packages you will need:</p>
+<pre class="r"><code>install.packages(&quot;adehabitatLT&quot;, 
+                 &quot;lubridate&quot;, 
+                 &quot;raster&quot;, 
+                 &quot;rworldmap&quot;, 
+                 &quot;sp&quot;)</code></pre>
+<pre class="r"><code>library(&quot;adehabitatLT&quot;)
+library(&quot;lubridate&quot;)
+library(&quot;raster&quot;)
+library(&quot;rworldmap&quot;)
+library(&quot;sp&quot;)</code></pre>
+<p>Import the data (.rds file):</p>
+<pre class="r"><code>locs_demo &lt;- readRDS(&quot;data/locs_demo.rds&quot;)
+head(locs_demo)</code></pre>
+<pre><code>##      tag_id animal_id latitude longitude    acquisition_time  x  y
+## 7703  91022    910220        0         0 2012-02-25 15:00:00 NA NA
+## 7704  91022    910220        0         0 2012-02-27 11:00:00 NA NA
+## 7705  91022    910220        0         0 2012-02-28 11:00:00 NA NA
+## 7706  91022    910220        0         0 2012-03-02 15:00:00 NA NA
+## 7707  91022    910220        0         0 2012-03-03 15:00:00 NA NA
+## 7708  91022    910220        0         0 2012-03-04 15:00:00 NA NA</code></pre>
+</div>
+<div id="creating-a-trajectory-object" class="section level1">
+<h1>Creating a Trajectory Object</h1>
+<p>First, I convert the locations into a SpatialPointsDataFrame and assign them a projection.</p>
+<pre class="r"><code>class(locs_demo)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>locs_demo &lt;- locs_demo[!is.na(locs_demo$x),]
+locs_demo &lt;- locs_demo[!is.na(locs_demo$y),]
+
+coordinates(locs_demo) &lt;- c(&quot;x&quot;, &quot;y&quot;)
+
+class(locs_demo)</code></pre>
+<pre><code>## [1] &quot;SpatialPointsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<pre class="r"><code>proj4string(locs_demo) &lt;- CRS(&quot;+init=epsg:32617&quot;)</code></pre>
+<p>Second, I create an ltraj object. Ltraj is a class of objects introduced in the adehabitatLT package, intended for storing movement trajectories. Trajectories can be of two types:</p>
+<ul>
+<li>Type 1: time not recorded. In this case, the chronological order of the locations is known, but the exact time is not (e.g., tracks in snow).</li>
+<li>Type 2: time recorded. Each location has an associated timestamp (e.g., radio- or satellite tracking). Within Type 2 trajectories, there can be irregular or regular ones (according to whether the time lag between locations is variable or constant).</li>
+</ul>
+<p>We are going to work with Type 2 trajectories.</p>
+<p>For the as.ltraj() function to run, the date needs to be a POSIXct object. In this case, the date is already in that format.</p>
+<pre class="r"><code>class(locs_demo$acquisition_time)</code></pre>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<p>If it was not, I would have had to convert it as follows:</p>
+<pre class="r"><code># locs_demo$acquisition_time &lt;- as.POSIXct(strptime(as.character(locs_demo$acquisition_time), &quot;%y%m%d&quot;, tz=&quot;EST&quot;))</code></pre>
+<p>We can now create the ltraj object. I will call this “raw” because for now I am ignoring the sampling regime. This “raw” ltraj object will be useful to take a look at the data before I regularize the trajectories.</p>
+<pre class="r"><code>raw_wost &lt;- as.ltraj(coordinates(locs_demo),date=locs_demo$acquisition_time,id=locs_demo$animal_id, typeII=TRUE)
+
+is.regular(raw_wost)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<p>The resulting object belongs to the classes “ltraj” and “list”. It is, indeed, a list of data frames, and thus it behaves as any other list in R for handling purposes.</p>
+<pre class="r"><code>raw_wost</code></pre>
+<pre><code>## 
+## *********** List of class ltraj ***********
+## 
+## Type of the traject: Type II (time recorded)
+## * Time zone unspecified: dates printed in user time zone *
+## Irregular traject. Variable time lag between two locs
+## 
+## Characteristics of the bursts:
+##        id   burst nb.reloc NAs          date.begin            date.end
+## 1  851260  851260     5433   0 2009-01-01 06:00:00 2009-12-31 16:00:00
+## 2  910200  910200     5305   0 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 3  910220  910220     5420   0 2012-01-01 06:00:00 2012-12-31 21:00:00
+## 4  910230  910230     5241   0 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 5 1134370 1134370     5351   0 2014-01-01 06:00:00 2014-12-31 21:00:00
+## 6 1134400 1134400     5382   0 2013-01-01 06:00:00 2013-12-31 21:00:00
+## 
+## 
+##  infolocs provided. The following variables are available:
+## [1] &quot;pkey&quot;</code></pre>
+<pre class="r"><code>class(raw_wost)</code></pre>
+<pre><code>## [1] &quot;ltraj&quot; &quot;list&quot;</code></pre>
+<p>Using single square brackets, we can isolate single elements of the list (note that this way we still obtain an object of class “ltraj” and “list”).</p>
+<pre class="r"><code>raw_wost[1]</code></pre>
+<pre><code>## 
+## *********** List of class ltraj ***********
+## 
+## Type of the traject: Type II (time recorded)
+## * Time zone unspecified: dates printed in user time zone *
+## Irregular traject. Variable time lag between two locs
+## 
+## Characteristics of the bursts:
+##       id  burst nb.reloc NAs          date.begin            date.end
+## 1 851260 851260     5433   0 2009-01-01 06:00:00 2009-12-31 16:00:00
+## 
+## 
+##  infolocs provided. The following variables are available:
+## [1] &quot;pkey&quot;</code></pre>
+<pre class="r"><code>class(raw_wost[1])</code></pre>
+<pre><code>## [1] &quot;ltraj&quot; &quot;list&quot;</code></pre>
+<p>Using double square brackets, we can access the information inside each element of the list (in this case, each element is a data frame).</p>
+<pre class="r"><code>head(raw_wost[[1]])</code></pre>
+<pre><code>##               x       y                date            dx            dy
+## 797895 459184.7 3005313 2009-01-01 06:00:00 -933.44509895 2292.61362273
+## 797896 458251.3 3007605 2009-01-01 07:00:00   32.68617864   -0.10983635
+## 797897 458284.0 3007605 2009-01-01 08:00:00    0.00000000    0.00000000
+## 797898 458284.0 3007605 2009-01-01 09:00:00    0.00000000    0.00000000
+## 797899 458284.0 3007605 2009-01-01 10:00:00   16.83833414   -0.05654879
+## 797900 458300.8 3007605 2009-01-01 11:00:00    0.06322446   18.82987274
+##              dist   dt     R2n    abs.angle     rel.angle
+## 797895 2475.35795 3600       0  1.957454052            NA
+## 797896   32.68636 3600 6127397 -0.003360317 -1.960814e+00
+## 797897    0.00000 3600 6066940           NA            NA
+## 797898    0.00000 3600 6066940           NA            NA
+## 797899   16.83843 3600 6066940 -0.003358324  1.993693e-06
+## 797900   18.82998 3600 6036630  1.567438672  1.570797e+00</code></pre>
+<pre class="r"><code>class(raw_wost[[1]])</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+</div>
+<div id="regularization-of-movement-trajectories" class="section level1">
+<h1>Regularization of Movement Trajectories</h1>
+<p>The next step is the regularization of the trajectories. To do this, I need to set some rules concerning the sampling regime, so that I end up with trajectories composed by locations evenly spaced in time. This will involve two steps: adding missing locations where a fix was expected but did not happen, and rounding the timestamp of locations that were collected approximately when expected.</p>
+<p>These 6 tags were programmed with a 1-hour sampling schedule. So, first, I want to make sure that there is a record every hour. Every time a fix was expected and the tag failed to collect a location, I am going to add a missing value using the function setNA(). To do so, I need to define a reference timestamp. Missing values will be placed at integer multiples of the expected lag time with respect to the reference timestamp. For simplicity, I will use the earliest timestamp found in the dataset as a reference. (Note that, in case the lag time is not 1 hour, it might be better to define an individual-based reference timestamp to avoid accidental schedule shiftings).</p>
+<pre class="r"><code>refda &lt;- min(locs_demo$acquisition_time)
+wost_NA &lt;- setNA(raw_wost,refda,1,units=&quot;hour&quot;)</code></pre>
+<p>Second, I want to make sure that the timestamp associated with each location is exactly at the expected time. It often happens that locations are taken approximately at the programmed time, plus or minus a few seconds/minutes. I want to round the timestamps so that they are <em>exactly</em> one hour apart from each other, rather than <em>approximately</em> one hour apart. Again, timestamps are rounded with respect to a reference time. I will use the function sett0().</p>
+<pre class="r"><code>wost_demo &lt;- sett0(wost_NA,refda,1,units=&quot;hour&quot;)
+
+is.regular(wost_demo)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="exploration-of-movement-trajectories" class="section level1">
+<h1>Exploration of Movement Trajectories</h1>
+<div id="plot-trajectories" class="section level2">
+<h2>Plot Trajectories</h2>
+<p>The first thing we want to do is take a look at the trajectories. Plotting them is really easy:</p>
+<pre class="r"><code>plot.ltraj(wost_demo)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/plotraj-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>…but not very informative without a map on the background. Let’s go ahead and add one.</p>
+<p>We can load a high-resolution map using the package rworldmap, then crop it to the area of interest. I am going to use the maximum and minimum coordinates in the dataset to define a bounding box (first I need to transform from UTMs to lat/long). Then I will crop the world map using the bounding box and back-transform it into UTMs.</p>
+<pre class="r"><code>map_gen &lt;- getMap(resolution=&quot;high&quot;)[-which(getMap()$ADMIN==&#39;Antarctica&#39;),]</code></pre>
+<pre><code>## Warning in getMap(resolution = &quot;high&quot;): for resolution=&#39;high&#39; option you
+## need to install package rworldxtra, using low resolution version for now</code></pre>
+<pre class="r"><code># Not excluding Antarctica apparently creates issues 
+
+locs_ll &lt;- spTransform(locs_demo, CRS(&quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&quot;))
+
+map_ext &lt;- extent(min(locs_ll$longitude),max(locs_ll$longitude),
+                 min(locs_ll$latitude),max(locs_ll$latitude))
+bbox &lt;- bbox(map_ext)
+bbox &lt;- as.data.frame(t(bbox))
+coordinates(bbox) &lt;- ~s1+s2
+
+proj4string(bbox) &lt;- CRS(&quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&quot;)
+# Assign projection to the bounding box (same as map_gen)
+
+map_crop &lt;- map_gen[bbox,]
+map_crop &lt;- spTransform(map_crop, CRS(&quot;+init=epsg:32617&quot;))
+
+par(mfrow=c(2,3))
+plot.ltraj(wost_demo[1], main=burst(wost_demo[1]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot.ltraj(wost_demo[2], main=burst(wost_demo[2]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot.ltraj(wost_demo[3], main=burst(wost_demo[3]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot.ltraj(wost_demo[4], main=burst(wost_demo[4]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot.ltraj(wost_demo[5], main=burst(wost_demo[5]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot.ltraj(wost_demo[6], main=burst(wost_demo[6]), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/plot%20wmap-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+</div>
+<div id="explore-trajectory-parameters" class="section level2">
+<h2>Explore Trajectory Parameters</h2>
+<p>What is really neat about ltraj objects is that, the moment you create one, the function automatically computes a series of trajectory parameters.</p>
+<pre class="r"><code>wost_demo</code></pre>
+<pre><code>## 
+## *********** List of class ltraj ***********
+## 
+## Type of the traject: Type II (time recorded)
+## * Time zone unspecified: dates printed in user time zone *
+## Regular traject. Time lag between two locs: 3600 seconds
+## 
+## Characteristics of the bursts:
+##        id   burst nb.reloc  NAs          date.begin            date.end
+## 1 1134370 1134370     8752 3401 2014-01-01 06:00:00 2014-12-31 21:00:00
+## 2 1134400 1134400     8752 3370 2013-01-01 06:00:00 2013-12-31 21:00:00
+## 3  851260  851260     8747 3314 2009-01-01 06:00:00 2009-12-31 16:00:00
+## 4  910200  910200     8752 3447 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 5  910220  910220     8776 3356 2012-01-01 06:00:00 2012-12-31 21:00:00
+## 6  910230  910230     8752 3511 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 
+## 
+##  infolocs provided. The following variables are available:
+## [1] &quot;pkey&quot;</code></pre>
+<pre class="r"><code>head(wost_demo[[1]])</code></pre>
+<pre><code>##              x       y                date          dx          dy
+## 35028 501324.9 2806232 2014-01-01 06:00:00   955.82929  -590.08478
+## 35029 502280.8 2805642 2014-01-01 07:00:00  -150.96961   368.71984
+## 35030 502129.8 2806010 2014-01-01 08:00:00     0.00000     0.00000
+## 35031 502129.8 2806010 2014-01-01 09:00:00   -67.22984 -1143.89327
+## 35032 502062.6 2804867 2014-01-01 10:00:00 -5601.77691 -2417.01217
+## 35033 496460.8 2802450 2014-01-01 11:00:00    50.30134   -55.37995
+##             dist   dt        R2n  abs.angle rel.angle
+## 35028 1123.30302 3600        0.0 -0.5530820        NA
+## 35029  398.42960 3600  1261809.7  1.9594163  2.512498
+## 35030    0.00000 3600   696801.5         NA        NA
+## 35031 1145.86721 3600   696801.5 -1.6295016  2.694267
+## 35032 6100.97143 3600  2408027.8 -2.7342526 -1.104751
+## 35033   74.81419 3600 37965496.0 -0.8334171  1.900836</code></pre>
+<p>Each row in an individual data frame corresponds to a location, with an associated pair of coordinates and timestamp. In addition to that, the as.ltraj() function calculated:</p>
+<ul>
+<li>The values of “dx” and “dy”, i.e. the increments along each axis between the present location and the consecutive one;</li>
+<li>The step length (“dist”), i.e. the euclidean distance between the present location and the consecutive one;</li>
+<li>The lag time “dt”, i.e. the time interval between one location and the next (expressed in seconds);</li>
+<li>The net squared displacement “R2n”, i.e. the euclidean distance betwen the present location and the starting location of the trajectory;</li>
+<li>The absolute angle “abs.angle”, i.e. the angle between the present step and the x-axis</li>
+<li>The relative or turning angle “rel.angle”, i.e. the angle between the present step and the consecutive one.</li>
+</ul>
+<p>There are some built-in functions in the adehabitatLT package to explore trajectory parameters. For example, we can plot a time series of a parameter of interest, e.g. the step length:</p>
+<pre class="r"><code>plotltr(wost_demo, which=&quot;dist&quot;)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/slts-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Or, we might want to make our own custom graphs - for example we might want to look at a histogram of a parameter of interest. Luckily it is really straightforward to convert an ltraj object into a data frame and easily access and manage the data using familiar syntaxes.</p>
+<pre class="r"><code>wost_df &lt;- ld(wost_demo)
+head(wost_df)</code></pre>
+<pre><code>##              x       y                date          dx          dy
+## 35028 501324.9 2806232 2014-01-01 06:00:00   955.82929  -590.08478
+## 35029 502280.8 2805642 2014-01-01 07:00:00  -150.96961   368.71984
+## 35030 502129.8 2806010 2014-01-01 08:00:00     0.00000     0.00000
+## 35031 502129.8 2806010 2014-01-01 09:00:00   -67.22984 -1143.89327
+## 35032 502062.6 2804867 2014-01-01 10:00:00 -5601.77691 -2417.01217
+## 35033 496460.8 2802450 2014-01-01 11:00:00    50.30134   -55.37995
+##             dist   dt        R2n  abs.angle rel.angle      id   burst pkey
+## 35028 1123.30302 3600        0.0 -0.5530820        NA 1134370 1134370    1
+## 35029  398.42960 3600  1261809.7  1.9594163  2.512498 1134370 1134370    2
+## 35030    0.00000 3600   696801.5         NA        NA 1134370 1134370    3
+## 35031 1145.86721 3600   696801.5 -1.6295016  2.694267 1134370 1134370    4
+## 35032 6100.97143 3600  2408027.8 -2.7342526 -1.104751 1134370 1134370    5
+## 35033   74.81419 3600 37965496.0 -0.8334171  1.900836 1134370 1134370    6</code></pre>
+<pre class="r"><code>wost_demo_bt &lt;- dl(wost_df)
+wost_demo_bt</code></pre>
+<pre><code>## 
+## *********** List of class ltraj ***********
+## 
+## Type of the traject: Type II (time recorded)
+## * Time zone unspecified: dates printed in user time zone *
+## Regular traject. Time lag between two locs: 3600 seconds
+## 
+## Characteristics of the bursts:
+##        id   burst nb.reloc  NAs          date.begin            date.end
+## 1 1134370 1134370     8752 3401 2014-01-01 06:00:00 2014-12-31 21:00:00
+## 2 1134400 1134400     8752 3370 2013-01-01 06:00:00 2013-12-31 21:00:00
+## 3  851260  851260     8747 3314 2009-01-01 06:00:00 2009-12-31 16:00:00
+## 4  910200  910200     8752 3447 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 5  910220  910220     8776 3356 2012-01-01 06:00:00 2012-12-31 21:00:00
+## 6  910230  910230     8752 3511 2010-01-01 06:00:00 2010-12-31 21:00:00
+## 
+## 
+##  infolocs provided. The following variables are available:
+## [1] &quot;pkey&quot;</code></pre>
+<pre class="r"><code>identical(wost_demo, wost_demo_bt)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Let’s make some histograms of net squared displacement, as an example.</p>
+<pre class="r"><code>perind &lt;- split(wost_df, wost_df$id)
+# First I split the df into a list of individual data frames
+class(perind)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>plotNSD &lt;- function(x) {
+  hist(x$R2n, breaks=15, xlab=&quot;NSD&quot;, main=paste0(&quot;NSD &quot;, unique(x$id), &quot; n=&quot;, nrow(x[!is.na(x$R2n),])))
+}
+
+par(mfrow=c(2,3))
+lapply(perind, plotNSD)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/plot%20nsd-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<p>Or some rose diagrams of turning angles:</p>
+<pre class="r"><code>plotRA &lt;- function(x) {
+  rose.diag(x[!is.na(x$rel.angle),]$rel.angle, bins=24, prop=2, main=paste0(&quot;Rel.Angles &quot;, unique(x$id), &quot; n=&quot;, nrow(x[!is.na(x$rel.angle),])))
+}
+
+par(mfrow=c(2,3))
+lapply(perind, plotRA)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/rosediag-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+</div>
+</div>
+<div id="first-passage-time-analysis" class="section level1">
+<h1>First Passage Time Analysis</h1>
+<p>First Passage Time is a measure of the time it takes for an individual to enter and leave a circle of fixed radius drawn around each location of a trajectory (Fauchald &amp; Tveraa 2003). FPT quantifies the intensity of space use around each location, and it was introduced as a tool to identify the spatial scale at which animals interact with the landscape. FPT analysis was first applied to identify area-restricted search (ARS) movements within a movement trajectory, but has later been applied to identify interaction with the landscape at multiple scales, in a nested fashion.</p>
+<p>First Passage Time analysis consists in calculating FPT along a trajectory using circles of different radii. Within the chosen range of radii, the variance of FPT will be higher for some values and smaller for others. The variance of FPT peaks at the radius (i.e., spatial scale) at which the animal interacts with the landscape. Within a large enough array of radii, we can observe several peaks - each corresponding to a different scale of interaction.</p>
+<p>Let’s look at an example. Suppose we want to identify the spatial scale at which Wood Storks forage - or in other words, how big of an area they cover while searching for food. We need to choose a range of possible radii that encompasses reasonable spatial scales for Wood Stork foraging behavior. Since we are focusing on a relatively small-scale behavior, let’s say we consider circles with radii ranging from 5 to 500 meters. We then compute FPT at each location in the trajectory for each of the radii in our chosen interval.</p>
+<p>We then plot a variogram of FPT in function of the considered range of radii. We expect to observe a peak in variance corresponding to the spatial scale at which searching behavior happens. Once the spatial scale of interest has been identified, we can plot FPT at that scale to detect bouts of foraging behavior.</p>
+<pre class="r"><code>wost_fpt1 &lt;- fpt(wost_demo, radii=5:500, units=&quot;hours&quot;)
+varlogfpt(wost_fpt1, graph=TRUE)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20small-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>meanfpt(wost_fpt1, graph=TRUE)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20small-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(wost_fpt1, scale=25)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20small-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Since our demo dataset consists of yearly trajectories, it is difficult to eye-ball foraging behavior bouts just by looking at the graphs, because of their small temporal scale.</p>
+<p>Let’s try to focus on a larger scale behavior: migration vs home range residency. FPT analysis can be used to identify the spatial scale of seasonal ranges in migratory animals. Similarly to area-restricted search, but at a larger spatio-temporal scale, home range residency consists in the prolonged permanence within a relatively small area. Using the same rationale as we did for foraging behavior, let’s repeat the operations above on a different range of spatial scales, adjusting it to the behavior we are interested in this time. For example, we might want to look at radii ranging from 1 to 100 km.</p>
+<pre class="r"><code>wost_fpt2 &lt;- fpt(wost_demo, radii=seq(1000, 100000, by=1000), units=&quot;hours&quot;)
+varlogfpt(wost_fpt2, graph=TRUE)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20large-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This time, the variograms are less similar between individuals. This is because there is much more variability between individuals in the scale of their home range residency patterns than there is in the scale of foraging behavior. In other words, all Wood Storks search more or less at the same spatial scale while foraging, but they can vary widely in the spatial scale of their home range movements.</p>
+<p>The first individual in our dataset (1134370, top-left graph) seems to have a clearer peak of FPT variance than the others. Let’s look at this individual as an illustrative example.</p>
+<pre class="r"><code>fpt_4370 &lt;- fpt(wost_demo[1], radii=seq(1000, 100000, by=1000), units=&quot;hours&quot;)
+varlogfpt(fpt_4370, graph=TRUE)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20ind-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Wood Stork 1134370 shows a peak in the variance of FPT at a radius of approximately 45 km. Let’s plot a time series of FPT at that scale:</p>
+<pre class="r"><code>plot(fpt_4370, scale=45000)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/fpt%20ind%20scale-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This graph suggests that the trajectory of Wood Stork 1134370 is composed of three segments: an initial segment corresponding to low FPT values (fast/directed movement), a central part corresponding to high FPT values (slow/localized movement), and a final segment with low FPT values again (fast/directed movement). This pattern could be interpreted, for example, as a migration bout, followed by a phase of residency in a seasonal home range, followed by another migration.</p>
+</div>
+<div id="path-segmentation" class="section level1">
+<h1>Path segmentation</h1>
+<div id="segmentation-based-on-first-passage-time" class="section level2">
+<h2>Segmentation based on First Passage Time</h2>
+<p>First Passage Time can be used as a signal for the segmentation of trajectories in the Behavioral Change Point Analysis framework. BCPA methods are used to detect significant change points along the time series of a signal of choice. Theoretically any movement parameter can be used as a signal, but according to the behaviors that one is trying to separate some signals can be more informative than others and allow more accurate segmentation. FPT is a good signal to discriminate between segments of fast, directed movement and segments of slow, localized movement. Being a type of time series analysis, BCPA takes into account the temporal autocorrelation of path signals.</p>
+<p>Let’s try to apply BCPA to the segmentation of the trajectory of Wood Stork 1134370 using FPT at 45 km as a signal. The algorithm that we are going to use to detect change points was introduced by Lavielle (1999, 2005). This method looks for the optimal segmentation of a trajectory by minimizing a contrast function, i.e., a function measuring the discrepancy between the observed time series and the underlying model. For example, we can set our analysis assuming that different segments will differ in the mean of the signal of interest, or in its standard deviation, or in both mean and standard deviation. According to what model we assume a priori, we are going to use a different contrast function. For a given number of segments, the algorithm finds the segmentation for which the contrast function is minimized.</p>
+<p>The Lavielle method requires us to define three parameters:</p>
+<ul>
+<li>The minimum number of locations that a segment needs to be composed of;</li>
+<li>The maximum number of segments that we allow within the entire trajectory;</li>
+<li>The type of contrast function we want to use (based on mean, standard deviation, or both).</li>
+</ul>
+<p>The algorithm will scan the time series of a signal of choice (in our case, the 45 km radius FPT) using a moving window of our specified size Lmin, looking for segments that differ from the consecutive ones in the path signal parameter of choice (in our case, the mean), up until a maximum of Kmax segments. We are going to require a segment to be composed of at least 10 steps, and we are going to allow a maximum of 10 segments.</p>
+<p>Before we run the segmentation, let’s add a column for FPT into the ltraj object. We need to convert the ltraj back in a data frame, get rid of NAs, bind the FPT values, convert back into an ltraj and regularize the trajectory again.</p>
+<pre class="r"><code>df_4370 &lt;- ld(wost_demo[1])
+df_4370 &lt;- df_4370[!is.na(df_4370$x),]
+df_4370 &lt;- df_4370[!is.na(df_4370$y),]
+
+df_4370$fpt_r45 &lt;- fpt_4370[[1]]$r45
+
+traj_4370 &lt;- dl(df_4370)
+# regularize again
+traj_4370 &lt;- setNA(traj_4370,refda,1,units=&quot;hour&quot;)
+traj_4370 &lt;- sett0(traj_4370,refda,1,units=&quot;hour&quot;)
+
+# To access infolocs:
+# infolocs(traj_4370)[[1]]$fpt_r45
+
+lav_4370 &lt;- lavielle(traj_4370, Lmin=10, Kmax=10, type=&quot;mean&quot;, which=&quot;fpt_r45&quot;)
+chooseseg(lav_4370)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/lavielle-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The scree plot shows the decrease of the contrast function as a function of the number of segments. We want to pick the value of number of segments past which the slope of the curve stops decreasing sharply. In our case, that corresponds to K=3 segments.</p>
+<p>Now, we want to see the results of the segmentation with K=3. Let’s go ahead and look at where the algorithm places the breaks between segments along the FPT time series.</p>
+<pre class="r"><code>seg_4370 &lt;- findpath(lav_4370, 3)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/seg-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The result of the segmentation confirms our initial visual assessment. Let’s see what this corresponds to in terms of trajectory splitting:</p>
+<pre class="r"><code>plot(seg_4370)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow=c(1,3))
+plot(seg_4370[1],ylim=c(2800000,3700000),xlim=c(300000,700000))
+plot(seg_4370[2],ylim=c(2800000,3700000),xlim=c(300000,700000))
+plot(seg_4370[3],ylim=c(2800000,3700000),xlim=c(300000,700000))</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<pre class="r"><code>par(mfrow=c(1,3))
+plot(seg_4370[1],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot(seg_4370[2],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot(seg_4370[3],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split%20map-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<p>As expected, the trajectory got split in 3 segments: a first segment consisting in a large scale, directed movement (migration), a second segment consisting in a series of home-range restricted movements, and a third segment similar to the first one (another migration).</p>
+</div>
+<div id="segmentation-based-on-net-squared-displacement" class="section level2">
+<h2>Segmentation based on Net Squared Displacement</h2>
+<p>Net Squared Displacement has been used as a parameter to identify migratory movements, although its usefuleness in accurately detecting migration is debated. Let’s compare the results of the FPT segmentation with an NSD-based segmentation. We are going to apply Lavielle’s method again, with the only difference that this time we will use NSD, not FPT as the path signal of choice.</p>
+<pre class="r"><code>plotltr(traj_4370, which=&quot;R2n&quot;)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/nsd%20series-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The time series plot of NSD for Wood Stork 1134370 is somewhat similar to the FPT one. We can still identify an initial segment with low NSD values (permanence in the surroundings of the starting point), a middle segment with high NSD values (movements in an area far from the starting point), and a final segment with low NSD values again (movements in an area close to the starting point). Let’s proceed with the segmentation.</p>
+<pre class="r"><code>lav_4370 &lt;- lavielle(traj_4370, Lmin=10, Kmax=10, type=&quot;mean&quot;, which=&quot;R2n&quot;)
+chooseseg(lav_4370)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/nsd%20seg-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The scree plot indicates 3 as the optimal number of segments, again.</p>
+<pre class="r"><code>seg_4370 &lt;- findpath(lav_4370, 3)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split%20nsd-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(seg_4370)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split%20nsd-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow=c(1,3))
+plot(seg_4370[1],ylim=c(2800000,3700000),xlim=c(300000,700000))
+plot(seg_4370[2],ylim=c(2800000,3700000),xlim=c(300000,700000))
+plot(seg_4370[3],ylim=c(2800000,3700000),xlim=c(300000,700000))</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split%20nsd-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<pre class="r"><code>par(mfrow=c(1,3))
+plot(seg_4370[1],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot(seg_4370[2],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)
+plot(seg_4370[3],ylim=c(2800000,3700000),xlim=c(300000,700000), spoldf=map_crop, colspoldf=&quot;cornsilk&quot;)</code></pre>
+<p><img src="/post/2018-01-31-wildlife-tracking-data-in-r_files/figure-html/split%20nsd%20map-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<p>The NSD-based segmentation yields slightly different results than the FPT-based one. In both cases, the trajectory gets split in 3 portions that are generally corresponding, but while the FPT markedly isolates the home range restricted movements from the large scale migrations, the NSD cuts the migratory movements in two, interrupting them approximately at the mid-point between the departure and arrival locations. This difference is the by-product of NSD being a purely spatial path signal, while the FPT takes into consideration the temporal dimension as well. While FPT measures the intensity of movements as time spent in an area, NSD measures the spatial displacement with respect to a reference location.</p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>The following list includes both papers that were directly referenced in the text and a few suggested readings for those who might be interested in digging deeper.</p>
+<ul>
+<li><p>Barraquand, F., &amp; Benhamou, S. (2008). Animal movements in heterogeneous landscapes: identifying profitable places and homogeneous movement bouts. Ecology, 89(12), 3336-3348.</p></li>
+<li><p>Edelhoff, H., Signer, J., &amp; Balkenhol, N. (2016). Path segmentation for beginners: an overview of current methods for detecting changes in animal movement patterns. Movement ecology, 4(1), 21.</p></li>
+<li><p>Fauchald, P., &amp; Tveraa, T. (2003). Using first???passage time in the analysis of area???restricted search and habitat selection. Ecology, 84(2), 282-288.</p></li>
+<li><p>Gurarie, E., Bracis, C., Delgado, M., Meckley, T. D., Kojola, I., &amp; Wagner, C. M. (2016). What is the animal doing? Tools for exploring behavioural structure in animal movements. Journal of Animal Ecology, 85(1), 69-84.</p></li>
+<li><p>Lavielle, M. (1999). Detection of multiple changes in a sequence of dependent variables. Stochastic Processes and their Applications, 83(1), 79-102.</p></li>
+<li><p>Lavielle, M. (2005). Using penalized contrasts for the change-point problem. Signal processing, 85(8), 1501-1510.</p></li>
+<li><p>Le Corre, M., Pellerin, M., Pinaud, D., Van Laere, G., Fritz, H., &amp; Sa??d, S. (2008). A multi-patch use of the habitat: testing the First-Passage Time analysis on roe deer Capreolus capreolus paths. Wildlife Biology, 14(3), 339-349.</p></li>
+</ul>
+</div>
