@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Data Carpentry</title>
+      <link>/tags/data-carpentry/</link>
+      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/data-carpentry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Data Management</title>
       <link>/tags/data-management/</link>
       <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
@@ -147,6 +156,15 @@
     </item>
     
     <item>
+      <title>Software Carpentry</title>
+      <link>/tags/software-carpentry/</link>
+      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/software-carpentry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spatial</title>
       <link>/tags/spatial/</link>
       <pubDate>Wed, 31 Jan 2018 00:00:00 +0000</pubDate>
@@ -161,6 +179,15 @@
       <pubDate>Wed, 31 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>/tags/teaching/</link>
+      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/teaching/</guid>
       <description></description>
     </item>
     
