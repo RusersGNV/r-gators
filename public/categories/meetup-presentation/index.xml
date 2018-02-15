@@ -6,10 +6,20 @@
     <description>Recent content in Meetup Presentation on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/meetup-presentation/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Optimizing R code using vectorization</title>
+      <link>/2018/02/14/optimizing-r-code-using-vectorization/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/14/optimizing-r-code-using-vectorization/</guid>
+      <description>Download the R code used in this presentation at in the Github repository https://github.com/ufrmeetup/heslar.
+ </description>
+    </item>
     
     <item>
       <title>Wildlife tracking data in R</title>

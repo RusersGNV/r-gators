@@ -6,10 +6,20 @@
     <description>Recent content in Posts on R-Gators</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Optimizing R code using vectorization</title>
+      <link>/2018/02/14/optimizing-r-code-using-vectorization/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/14/optimizing-r-code-using-vectorization/</guid>
+      <description>Download the R code used in this presentation at in the Github repository https://github.com/ufrmeetup/heslar.
+ </description>
+    </item>
     
     <item>
       <title>Become a Software and Data Carpentry Instructor</title>
@@ -17,7 +27,7 @@
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/02/09/carpentry-instructor/</guid>
-      <description>We will be hosting an instructor training workshop for becoming certified as a Carpentries instructor on March 5-6, 2018 and we invite you to apply by Wednesday 2&amp;frasl;14. The purpose of the Carpentries organization, which is a merger between the pre-existing Software Carpentry (https://software-carpentry.org/) and Data Carpentry (http://www.datacarpentry.org/), is to run workshops that provide better computational skills to scientists, including in various programming languages.
+      <description>We will be hosting an instructor training workshop for becoming certified as a Carpentries instructor on March 5-6, 2018 and we invite you to apply by Wednesday Feburary 14. The purpose of the Carpentries organization, which is a merger between the pre-existing Software Carpentry (https://software-carpentry.org/) and Data Carpentry (http://www.datacarpentry.org/), is to run workshops that provide better computational skills to scientists, including in various programming languages.
 The upcoming 2-day training workshop will train instructors to use educational pedagogy and best instructional practices while teaching technical subjects like programming and reproducible science.</description>
     </item>
     
