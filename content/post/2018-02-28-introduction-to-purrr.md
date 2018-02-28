@@ -11,4 +11,6 @@ description: ''
 thumbnail: 'https://ih1.redbubble.net/image.329884292.2339/sticker,375x360-bg,ffffff.u1.png'
 ---
 
-You can download the scripts for today using [this link](https://ufrmeetup.github.io/bentoh/meetupPurrBlank.R).
+If you want to follow along the presentation, the script where the `purrr` part is blanked out is [here](https://ufrmeetup.github.io/bentoh/meetupPurrBlank.R).
+ 
+And the full script with all the codes, and the answer to the exercise can be downloaded [here](https://ufrmeetup.github.io/bentoh/meetupPurr.R).
