@@ -1,3 +1,6 @@
+# Run this install command if you need to install rgdal and raster packages
+#install.packages(c('raster','rgdal'))
+
 library(raster)
 library(rgdal)
 
