@@ -1,0 +1,17 @@
+---
+title: Creating a simple Shiny app together
+author: Ben Toh
+date: '2018-04-04'
+slug: creating-a-simple-shiny-app-together
+categories: []
+tags:
+  - shiny
+description: ''
+thumbnail: ''
+---
+
+For R meetup on Apr 4, the presentation/tutorial materials are available at [https://github.com/ufrmeetup/gruShiny](https://github.com/ufrmeetup/gruShiny). You can download the whole folder itself as a zip, and unpack it.
+
+`app.R` script in each subfolder is non-functional, and we'll add codes in them together during the presentation to make them work. `appFull.R` is the fully functional copy. You should start with `app1` folder, and then move on to `app2` folder.
+
+For the script to work, you'll need to install the `shiny` and `tidyverse` packages (and their dependencies). To install the packages, type `install.packages(c("shiny", "tidyverse"))` in the console.
