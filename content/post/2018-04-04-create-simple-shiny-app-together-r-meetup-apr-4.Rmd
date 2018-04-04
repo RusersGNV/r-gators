@@ -1,8 +1,8 @@
 ---
-title: Meetup Apr 4 - Create simple Shiny app together
+title: "Meetup Apr 4 - Create simple Shiny app together"
 author: Ben Toh
 date: '2018-04-04'
-slug: create-simple-shiny-app-together-r-meetup-apr-4
+slug: #create-simple-shiny-app-together-r-meetup-apr-4"
 categories:
   - Meetup Presentation
 tags:
