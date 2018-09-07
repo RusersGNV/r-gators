@@ -1,0 +1,28 @@
+---
+title: Weekly Meetups
+menu: "main"
+---
+
+Our weekly meetups are on Tuesdays from 4:00 to 5:30 pm at the UF Informatics Institute (see map below for location). The meetups are primarily an open session where you can consult advanced R users. We also plan on running introductory boot camps throughout the semester. Please be sure to sign up for the list-serv for updates on topics and changes to the schedule/locations.
+
+```{r leaflet-map, echo=FALSE, eval=TRUE}
+library(leaflet)
+
+content <- paste(sep = "<br/>",
+  "<b><a href='http://www.r-gators.com'>UF R Meet Up</a></b>",
+  "Tuesdays, 4:00 to 5:30 pm",
+  "UF Informatics Institute"
+)
+
+m <- leaflet() %>% 
+  setView(lng = -82.34433, lat = 29.64816, zoom = 18) %>% 
+  addMarkers(-82.34433, 29.64816, popup = content, 
+             options = popupOptions(closeButton = FALSE))  %>% 
+  addTiles() %>% 
+  addMiniMap()
+m
+
+```
+
+
+If you have suggestions for future presentations, or are interested in giving a presentation (even better!), please don't hesitate to [send us an email](mailto:jjmillar@ufl.edu%3Cmailto:jjmillar@ufl.edu). We're also striving to create R markdown files for these presentations, which will be hosted on this site and on GitHub.
